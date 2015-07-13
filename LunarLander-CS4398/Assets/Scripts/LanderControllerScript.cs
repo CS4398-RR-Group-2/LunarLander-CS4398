@@ -62,19 +62,13 @@ public class LanderControllerScript : MonoBehaviour {
 
 	void applyRotation(float rotation)
 	{
-		Debug.Log ("Rotation = " + transform.rotation.eulerAngles.z);
+//		Debug.Log ("Rotation = " + transform.rotation.eulerAngles.z);
 
 		float initialRotation = transform.rotation.eulerAngles.z;
 		float finalRotation = initialRotation + (-rotation * thrustRotation);
 
-		//float finalRotation = transform.rotation.eulerAngles.z;// + rotation * thrustRotation;
+		// This Lerp function slowly applies the rotation over time
 		transform.rotation = Quaternion.Lerp ( transform.rotation, Quaternion.Euler(0,0,finalRotation), Time.deltaTime*thrustRotation);
-
-		//transform.rotation = Quaternion.Lerp ( transform.rotation, Quaternion.Euler(0,0,rotation), Time.deltaTime*thrustRotation);
-
-	//	transform.rotation = Quaternion.Euler(Vector3(0, 0, angle - 90));
-
-
 	}
 
 
