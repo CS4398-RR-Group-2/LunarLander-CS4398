@@ -7,6 +7,9 @@ public class LanderControllerScript : MonoBehaviour {
 
 
 	public GameObject thrusters;
+	public GameObject leftThruster;
+	public GameObject rightThruster;
+
 	public float thrustAcceleration = 5f;
 	public float thrustRotation = 5f;
 	public float maxSpeed = 10f;
@@ -30,15 +33,28 @@ public class LanderControllerScript : MonoBehaviour {
 	void FixedUpdate () {
 
 		// Get Left/Right Input. This will be used to rotate the Lander.
-		float rotate = Input.GetAxis ("Horizontal");
+		float rotate = Input.GetAxisRaw ("Horizontal");
 
-		if(rotate != 0)
-		{
-			applyRotation(rotate);
+		if (rotate != 0) {
+			applyRotation (rotate);
+
+			// User is rotating clockwise
+			if(rotate > 0)
+			{
+				showLeftThruster();
+			}
+			else
+			{
+				showRightThruster();
+			}
+
+		} else {
+			hideLeftThruster();
+			hideRightThruster();
 		}
 
 		// Get Up/Down Input. This will be used to rotate the Lander.
-		float thrust = Input.GetAxis ("Vertical");
+		float thrust = Input.GetAxisRaw ("Vertical");
 		if (thrust > 0f) {
 			applyThrust(thrust);
 			showThrusters();
@@ -83,5 +99,26 @@ public class LanderControllerScript : MonoBehaviour {
 	{
 		thrusters.SetActive(false);
 	}
+	
+	void showLeftThruster()
+	{
+		leftThruster.SetActive(true);
+	}
+	
+	void hideLeftThruster()
+	{
+		leftThruster.SetActive(false);
+	}
+	
+	void showRightThruster()
+	{
+		rightThruster.SetActive(true);
+	}
+	
+	void hideRightThruster()
+	{
+		rightThruster.SetActive(false);
+	}
+
 
 }

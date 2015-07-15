@@ -8,8 +8,6 @@ public class ScrollUV : MonoBehaviour {
 
 	MeshRenderer meshRenderer;
 
-
-
 	void Start()
 	{
 		meshRenderer = GetComponent<MeshRenderer> ();
@@ -17,17 +15,14 @@ public class ScrollUV : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+
 		Material mat = meshRenderer.material;
 
 		Vector2 offset = mat.mainTextureOffset;
-		
-		//offset.x += Time.deltaTime;
-		//offset.y += Time.deltaTime;
 		
 		offset.x = cam.transform.position.x * scrollFactor / 30;
 		offset.y = cam.transform.position.y * scrollFactor / 30;
 
 		meshRenderer.material.SetTextureOffset ("_MainTex", offset);
-		//mat.SetTextureOffset("_MainTex", 0);
 	}
 }
