@@ -20,7 +20,6 @@ public class LanderControllerScript : MonoBehaviour {
 
 
 
-
 	// Use this for initialization
 	void Start () {
 		hideThrusters ();
@@ -31,6 +30,14 @@ public class LanderControllerScript : MonoBehaviour {
 	// This function is called every time the physics engine updates. Because the Lander
 	// uses physics, FixedUpdate() should be called instead of Update()
 	void FixedUpdate () {
+
+		if (Input.GetKeyDown ("r")) {
+			print ("space key was pressed");
+
+			Application.LoadLevel(Application.loadedLevelName);
+
+			return;
+		}
 
 		// Get Left/Right Input. This will be used to rotate the Lander.
 		float rotate = Input.GetAxisRaw ("Horizontal");

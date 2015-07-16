@@ -27,7 +27,18 @@ public class MeteorManager : MonoBehaviour {
 	// Spawn meteors from 0 - 10 units to the left or right of the lander.
 	private float spawnWidth = 20f;
 
+	private bool disableMeteors = true;
 
+	void Update()
+	{
+		if (Input.GetKeyDown ("t")) {
+			print ("space key was pressed");
+			
+			disableMeteors = !disableMeteors;
+			
+			return;
+		}
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -38,6 +49,12 @@ public class MeteorManager : MonoBehaviour {
 
 	void Spawn()
 	{
+
+		if(disableMeteors)
+		{
+			return;
+		}
+
 		// Meteors will be spawned outside the view of the player, and they will be aimed toward the
 		// player with some randomness. The Y position is set above the camera's visible range,
 		// and the X position will be randomly selected from either the left or right.
