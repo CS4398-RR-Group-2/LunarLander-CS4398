@@ -31,19 +31,40 @@ public class LanderControllerScript : MonoBehaviour {
 	// uses physics, FixedUpdate() should be called instead of Update()
 	void FixedUpdate () {
 
-		if (Input.GetKeyDown ("r")) {
-			print ("space key was pressed");
-
-			Application.LoadLevel(Application.loadedLevelName);
-
+		// Level Select
+		if (Input.GetKeyDown ("1")) {			
+			GameManager.LoadLevel(0);			
 			return;
 		}
+		else if (Input.GetKeyDown ("2")) {			
+			GameManager.LoadLevel(1);			
+			return;
+		}
+		else if (Input.GetKeyDown ("3")) {			
+			GameManager.LoadLevel(2);			
+			return;
+		}
+
+		// Restart Level
+		if (Input.GetKeyDown ("r")) {
+			GameManager.RestartLevel();
+			return;
+		}
+
+
+
+
+
+		// Lander Controls
 
 		// Get Left/Right Input. This will be used to rotate the Lander.
 		float rotate = Input.GetAxisRaw ("Horizontal");
 
 		if (rotate != 0) {
-			applyRotation (rotate);
+
+			//applyRotation (rotate);
+			// Apply Torque applies rotation to the Physics System
+			applyTorque(rotate);
 
 			// User is rotating clockwise
 			if(rotate > 0)
@@ -78,20 +99,20 @@ public class LanderControllerScript : MonoBehaviour {
 	void applyThrust(float thrust)
 	{
 		landerRigidBody.AddForce(transform.up * thrustAcceleration);
-
-		//float upDirection = Vector2.up;
-		//landerRigidBody.AddForce(Vector3.up * thrustAcceleration * Time.deltaTime);
 	}
 
 	void applyRotation(float rotation)
 	{
-//		Debug.Log ("Rotation = " + transform.rotation.eulerAngles.z);
-
 		float initialRotation = transform.rotation.eulerAngles.z;
 		float finalRotation = initialRotation + (-rotation * thrustRotation);
 
 		// This Lerp function slowly applies the rotation over time
 		transform.rotation = Quaternion.Lerp ( transform.rotation, Quaternion.Euler(0,0,finalRotation), Time.deltaTime*thrustRotation);
+	}
+
+	void applyTorque(float rotation)
+	{
+		landerRigidBody.AddTorque(-rotation * thrustRotation/10);
 	}
 
 
