@@ -15,7 +15,14 @@ public class LanderControllerScript : MonoBehaviour {
 	public float thrustRotation = 5f;
 	public float maxSpeed = 10f;
 	public int fuelAmount = 5000; //an arbitrary amount of fuel for the lander
-	
+	public float healthAmount = 100;
+
+	private float xVelocity;
+	private float yVelocity;
+	private float DAMAGE_THRESHOLD = .7f;
+	private float DAMAGE_MULTIPLIER = 3f;
+	private int FUEL_BURN0 = 10;
+	private int FUEL_BURN1 = 1;
 	private Rigidbody2D landerRigidBody;
 	
 	
@@ -55,7 +62,7 @@ public class LanderControllerScript : MonoBehaviour {
 				{
 					applyRotation(rotate);
 					showLeftThruster();
-					fuelAmount = fuelAmount - 1;
+					fuelAmount = fuelAmount - FUEL_BURN1;
 				}
 			}
 			else
@@ -66,7 +73,7 @@ public class LanderControllerScript : MonoBehaviour {
 				{
 					applyRotation(rotate);
 					showRightThruster();
-					fuelAmount = fuelAmount - 1;
+					fuelAmount = fuelAmount - FUEL_BURN1;
 				}
 			}
 			
@@ -84,7 +91,7 @@ public class LanderControllerScript : MonoBehaviour {
 			{
 				applyThrust(thrust);
 				showThrusters();
-				fuelAmount = fuelAmount - 10;
+				fuelAmount = fuelAmount - FUEL_BURN0;
 			}
 		} 
 		else {
@@ -148,6 +155,31 @@ public class LanderControllerScript : MonoBehaviour {
 		rightThruster.SetActive(false);
 	}
 
+	void OnCollisionEnter2D(Collision2D coll){
+		xVelocity = Mathf.Abs (landerRigidBody.velocity.x);
+		yVelocity = Mathf.Abs (landerRigidBody.velocity.y);
+
+		if ((xVelocity > DAMAGE_THRESHOLD || yVelocity > DAMAGE_THRESHOLD) && healthAmount > 0) {
+			healthAmount = healthAmount - DAMAGE_MULTIPLIER * (xVelocity + yVelocity);
+			if (healthAmount <= 0)
+				healthAmount = 0; //game loss sequence should occur
+		}
+	}
+
+
+	void OnCollisionStay2D(Collision2D coll)
+	{
+		if(coll.gameObject.tag == "winningArea") {
+
+			if(landerRigidBody.velocity == new Vector2(0,0)){
+				Debug.Log ("Win");
+			}
+			else
+				Debug.Log ("Not Landed");
+		}
+	}
+
+	
 
 
 
