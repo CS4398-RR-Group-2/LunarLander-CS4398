@@ -43,15 +43,15 @@ public class LanderControllerScript : MonoBehaviour {
 
 		// Level Select
 		if (Input.GetKeyDown ("1")) {			
-			GameManager.LoadLevel(0);			
+			Application.LoadLevel("Scene01");			
 			return;
 		}
 		else if (Input.GetKeyDown ("2")) {			
-			GameManager.LoadLevel(1);			
+			Application.LoadLevel("scene_grav_01");			
 			return;
 		}
 		else if (Input.GetKeyDown ("3")) {			
-			GameManager.LoadLevel(2);			
+			Application.LoadLevel("scene_grav_02");			
 			return;
 		}
 
