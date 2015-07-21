@@ -84,13 +84,6 @@ public class MeteorManager : MonoBehaviour {
 
 			meteorRigidBody.velocity = new Vector3(dir.x, dir.y, 0) * initialVelocity / 8f;
 
-
-			
-			//Debug.Log("Meteor Angle = " + angle);
-
-			//newMeteor.transform.rotation = MeteorManager.FaceObject(meteorRigidBody.position, spawnTarget.position);
-			//meteorRigidBody.AddForce(dir * initialVelocity * 10);
-
 		}
 	}
 
