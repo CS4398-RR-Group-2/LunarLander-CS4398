@@ -4,11 +4,12 @@ using System.Collections;
 
 
 public class LanderControllerScript : MonoBehaviour {
-	
-	
+
 	public GameObject thrusters;
 	public GameObject leftThruster;
-	public GameObject rightThruster;
+	public GameObject rightThruster;	
+	public AudioSource thrusterAudio;
+
 	public GameObject fuelGauges;
 
 	public float thrustAcceleration = 5f;
@@ -24,9 +25,7 @@ public class LanderControllerScript : MonoBehaviour {
 	private int FUEL_BURN0 = 10;
 	private int FUEL_BURN1 = 1;
 	private Rigidbody2D landerRigidBody;
-	
-	
-	
+
 	
 	
 	// Use this for initialization
@@ -40,6 +39,9 @@ public class LanderControllerScript : MonoBehaviour {
 	// uses physics, FixedUpdate() should be called instead of Update()
 	void FixedUpdate () {
 
+		// Quit Game
+		if (Input.GetKey("escape"))
+			Application.Quit();
 
 		// Level Select
 		if (Input.GetKeyDown ("1")) {			
@@ -52,6 +54,10 @@ public class LanderControllerScript : MonoBehaviour {
 		}
 		else if (Input.GetKeyDown ("3")) {			
 			Application.LoadLevel("scene_grav_02");			
+			return;
+		}
+		else if (Input.GetKeyDown ("4")) {			
+			Application.LoadLevel("scene_grav_03");			
 			return;
 		}
 
@@ -71,8 +77,6 @@ public class LanderControllerScript : MonoBehaviour {
 		float rotate = Input.GetAxisRaw ("Horizontal");
 		
 		if (rotate != 0) {
-
-
 			//applyRotation (rotate);
 			// Apply Torque applies rotation to the Physics System
 			applyTorque(rotate);
@@ -163,31 +167,37 @@ public class LanderControllerScript : MonoBehaviour {
 	void showThrusters()
 	{
 		thrusters.SetActive(true);
+		startThrusterAudio();
 	}
 	
 	void hideThrusters()
 	{
 		thrusters.SetActive(false);
+		stopThrusterAudio();
 	}
 	
 	void showLeftThruster()
 	{
 		leftThruster.SetActive(true);
+		startThrusterAudio ();
 	}
 	
 	void hideLeftThruster()
 	{
 		leftThruster.SetActive(false);
+		stopThrusterAudio();
 	}
 	
 	void showRightThruster()
 	{
 		rightThruster.SetActive(true);
+		startThrusterAudio ();
 	}
 	
 	void hideRightThruster()
 	{
 		rightThruster.SetActive(false);
+		stopThrusterAudio();
 	}
 
 	void OnCollisionEnter2D(Collision2D coll){
@@ -216,8 +226,19 @@ public class LanderControllerScript : MonoBehaviour {
 
 	
 
+	void startThrusterAudio()
+	{
+		// Play the sound
+		if(!thrusterAudio.isPlaying)
+			thrusterAudio.Play ();
+	}
 
-
+	void stopThrusterAudio()
+	{
+		// If any of the three thrusters is active, then stop the sound
+		if(!thrusters.activeSelf && !leftThruster.activeSelf && !rightThruster.activeSelf)
+			thrusterAudio.Stop();
+	}
 	
 	
 }

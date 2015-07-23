@@ -8,7 +8,7 @@ public class FinishAreaCollider : MonoBehaviour {
 
 	public Text gameText;
 	public float maxLandingSpeed = 1f;
-
+	public AudioSource victoryAudioSource;
 
 	private bool didFinish = false;
 	private bool didStop = false;
@@ -43,7 +43,14 @@ public class FinishAreaCollider : MonoBehaviour {
 			{
 				didFinish = true;
 				didStop = true;
-				
+
+				if(victoryAudioSource != null)
+				{
+					victoryAudioSource.Play();
+					//victorySound.play();
+					//AudioSource.PlayClipAtPoint(victorySound, this.transform.position);
+				}
+
 				Transform fireworks = this.transform.parent.Find("FireworksEffect");
 				
 				Debug.Log ("Fireworks: " + fireworks);
