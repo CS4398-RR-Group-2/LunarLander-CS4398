@@ -208,9 +208,14 @@ public class LanderControllerScript : MonoBehaviour {
 		yVelocity = Mathf.Abs (landerRigidBody.velocity.y);
 
 		if ((xVelocity > DAMAGE_THRESHOLD || yVelocity > DAMAGE_THRESHOLD) && healthAmount > 0) {
-			healthAmount = healthAmount - DAMAGE_MULTIPLIER * Mathf.Pow ((xVelocity + yVelocity),2);
+			healthAmount = healthAmount - DAMAGE_MULTIPLIER * Mathf.Pow ((xVelocity + yVelocity), 2);
+
+			ScoreManager.score -= 10;
+
 			if (healthAmount <= 0)
 				healthAmount = 0; //game loss sequence should occur
+		} else {
+			ScoreManager.score += 10;
 		}
 	}
 
