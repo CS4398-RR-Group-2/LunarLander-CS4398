@@ -20,7 +20,7 @@ public class LanderControllerScript : MonoBehaviour {
 
 	private float xVelocity;
 	private float yVelocity;
-	private float DAMAGE_THRESHOLD = .7f;
+	private float DAMAGE_THRESHOLD = .05f;
 	private float DAMAGE_MULTIPLIER = 3f;
 	private int FUEL_BURN0 = 10;
 	private int FUEL_BURN1 = 1;
@@ -79,7 +79,8 @@ public class LanderControllerScript : MonoBehaviour {
 		if (rotate != 0) {
 			//applyRotation (rotate);
 			// Apply Torque applies rotation to the Physics System
-			applyTorque(rotate);
+			if (fuelAmount > 0)
+				applyTorque(rotate);
 
 
 			// User is rotating clockwise
@@ -200,18 +201,20 @@ public class LanderControllerScript : MonoBehaviour {
 		stopThrusterAudio();
 	}
 
+	//HP handler
 	void OnCollisionEnter2D(Collision2D coll){
+
 		xVelocity = Mathf.Abs (landerRigidBody.velocity.x);
 		yVelocity = Mathf.Abs (landerRigidBody.velocity.y);
 
 		if ((xVelocity > DAMAGE_THRESHOLD || yVelocity > DAMAGE_THRESHOLD) && healthAmount > 0) {
-			healthAmount = healthAmount - DAMAGE_MULTIPLIER * (xVelocity + yVelocity);
+			healthAmount = healthAmount - DAMAGE_MULTIPLIER * Mathf.Pow ((xVelocity + yVelocity),2);
 			if (healthAmount <= 0)
 				healthAmount = 0; //game loss sequence should occur
 		}
 	}
 
-
+	/* 
 	void OnCollisionStay2D(Collision2D coll)
 	{
 		if(coll.gameObject.tag == "winningArea") {
@@ -223,7 +226,7 @@ public class LanderControllerScript : MonoBehaviour {
 				Debug.Log ("Not Landed");
 		}
 	}
-
+	*/
 	
 
 	void startThrusterAudio()
