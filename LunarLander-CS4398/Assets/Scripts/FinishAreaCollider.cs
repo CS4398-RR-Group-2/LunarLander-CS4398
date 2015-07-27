@@ -28,8 +28,6 @@ public class FinishAreaCollider : MonoBehaviour {
 
 	void FixedUpdate()
 	{
-		Debug.Log ("RigidBody: " + triggerCollider.attachedRigidbody.rotation);
-		Debug.Log ("Finish: " + this.transform.parent.rotation.z * Mathf.Rad2Deg);
 
 
 		if(isInsideTriggerBox && !didFinish)
