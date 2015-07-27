@@ -9,6 +9,7 @@ public class FinishAreaCollider : MonoBehaviour {
 	public Text gameText;
 	public float maxLandingSpeed = 1f;
 	public AudioSource victoryAudioSource;
+	public bool isLastLevel = false;
 
 	private bool didFinish = false;
 	private bool didStop = false;
@@ -93,9 +94,13 @@ public class FinishAreaCollider : MonoBehaviour {
 	}
 	void NextLevel()
 	{
-		gameText.text = "LOADING..";
-		GameManager.LoadNextLevel();
+		if (isLastLevel) {
+			GameManager.LoadLevel(0);
+		} else {
+			gameText.text = "LOADING..";
+			GameManager.LoadNextLevel ();
+
+		}
+
 	}
-
-
 }

@@ -17,6 +17,7 @@ public class LanderControllerScript : MonoBehaviour {
 	public float maxSpeed = 10f;
 	public int fuelAmount = 5000; //an arbitrary amount of fuel for the lander
 	public float healthAmount = 100;
+	public bool isMainMenuScreen = false;
 
 	private float xVelocity;
 	private float yVelocity;
@@ -38,6 +39,8 @@ public class LanderControllerScript : MonoBehaviour {
 	// This function is called every time the physics engine updates. Because the Lander
 	// uses physics, FixedUpdate() should be called instead of Update()
 	void FixedUpdate () {
+
+		showThrusters ();
 
 		// Quit Game
 		if (Input.GetKey("escape"))
@@ -173,6 +176,9 @@ public class LanderControllerScript : MonoBehaviour {
 	
 	void hideThrusters()
 	{
+		if (isMainMenuScreen)
+			return;
+
 		thrusters.SetActive(false);
 		stopThrusterAudio();
 	}
@@ -237,7 +243,7 @@ public class LanderControllerScript : MonoBehaviour {
 	void startThrusterAudio()
 	{
 		// Play the sound
-		if(!thrusterAudio.isPlaying)
+		if(!thrusterAudio.isPlaying && !isMainMenuScreen)
 			thrusterAudio.Play ();
 	}
 
@@ -247,6 +253,5 @@ public class LanderControllerScript : MonoBehaviour {
 		if(!thrusters.activeSelf && !leftThruster.activeSelf && !rightThruster.activeSelf)
 			thrusterAudio.Stop();
 	}
-	
-	
+
 }
