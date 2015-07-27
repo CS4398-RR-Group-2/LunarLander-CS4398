@@ -26,13 +26,18 @@ public class LanderControllerScript : MonoBehaviour {
 	private int FUEL_BURN0 = 10;
 	private int FUEL_BURN1 = 1;
 	private Rigidbody2D landerRigidBody;
+	private SpriteRenderer landerSpriteRenderer;
 
-	
+	public Sprite[] spriteTest;
+
+
 	
 	// Use this for initialization
 	void Start () {
 		hideThrusters ();
 		landerRigidBody = GetComponent<Rigidbody2D>();
+
+
 	}
 	
 	
@@ -41,6 +46,14 @@ public class LanderControllerScript : MonoBehaviour {
 	void FixedUpdate () {
 
 		showThrusters ();
+
+		landerSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+		//landerSpriteRenderer.sprite = Resources.Load ("simplelander13");
+
+		damageHandler ();
+
+
+
 
 		// Quit Game
 		if (Input.GetKey("escape"))
@@ -82,31 +95,35 @@ public class LanderControllerScript : MonoBehaviour {
 		if (rotate != 0) {
 			//applyRotation (rotate);
 			// Apply Torque applies rotation to the Physics System
-			if (fuelAmount > 0)
+			if (fuelAmount > 0 && healthAmount > 0)
 				applyTorque(rotate);
 
 
 			// User is rotating clockwise
 			if(rotate > 0)
 			{
-				if(fuelAmount <= 0)
-					hideLeftThruster();
-				else
+				if(fuelAmount > 0 && healthAmount > 0)
 				{
 					applyRotation(rotate);
 					showLeftThruster();
 					fuelAmount = fuelAmount - FUEL_BURN1;
 				}
+				else
+				{
+					hideLeftThruster();
+				}
 			}
 			else
 			{
-				if(fuelAmount <= 0)
-					hideRightThruster();
-				else
+				if(fuelAmount > 0 && healthAmount > 0)
 				{
 					applyRotation(rotate);
 					showRightThruster();
 					fuelAmount = fuelAmount - FUEL_BURN1;
+				}
+				else
+				{
+					hideRightThruster();
 				}
 			}
 			
@@ -118,13 +135,15 @@ public class LanderControllerScript : MonoBehaviour {
 		// Get Up/Down Input. This will be used to rotate the Lander.
 		float thrust = Input.GetAxisRaw ("Vertical");
 		if (thrust > 0f) {
-			if(fuelAmount <= 0)
-				hideThrusters();
-			else
+			if(fuelAmount > 0 && healthAmount > 0)
 			{
 				applyThrust(thrust);
 				showThrusters();
 				fuelAmount = fuelAmount - FUEL_BURN0;
+			}
+			else
+			{
+				hideThrusters();
 			}
 		} 
 		else {
@@ -253,5 +272,17 @@ public class LanderControllerScript : MonoBehaviour {
 		if(!thrusters.activeSelf && !leftThruster.activeSelf && !rightThruster.activeSelf)
 			thrusterAudio.Stop();
 	}
+
+	void damageHandler()
+	{
+		int frame = (int)(healthAmount / (100/14));
+		frame = 14 - frame;
+		Debug.Log ("Frame " + frame);
+		landerSpriteRenderer.sprite = spriteTest [frame];
+
+
+	}
+
+	
 
 }
