@@ -76,7 +76,8 @@ public class FinishAreaCollider : MonoBehaviour {
 
 	}
 
-	
+	//I think this part below would have to be changed to alert the player if they're score
+	//qualifies for the top ten, if not then it should just go back to the main menu
 	void CountDown3()
 	{
 		gameText.gameObject.SetActive (true);
