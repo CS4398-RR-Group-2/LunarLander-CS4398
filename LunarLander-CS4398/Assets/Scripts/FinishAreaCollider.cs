@@ -98,6 +98,7 @@ public class FinishAreaCollider : MonoBehaviour {
 	void NextLevel()
 	{
 		if (isLastLevel) {
+			ScoreManager.FinalScore();
 			GameManager.LoadLevel(5);
 		} else {
 			gameText.text = "LOADING..";
