@@ -29,7 +29,6 @@ public class FinishAreaCollider : MonoBehaviour {
 	void FixedUpdate()
 	{
 
-
 		if(isInsideTriggerBox && !didFinish)
 		{
 			// Check if the Lander stopped.
@@ -44,8 +43,13 @@ public class FinishAreaCollider : MonoBehaviour {
 
 			if(didStop)
 			{
+
 				didFinish = true;
 				didStop = true;
+				int finalLevelScore;
+				finalLevelScore = (int)Mathf.Ceil((float)(triggerCollider.gameObject.GetComponent<LanderControllerScript>().fuelAmount * .02));
+				ScoreManager.AddScore(finalLevelScore);
+
 
 				if(victoryAudioSource != null)
 				{
