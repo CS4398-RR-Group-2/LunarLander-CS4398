@@ -10,6 +10,7 @@ public class FinishAreaCollider : MonoBehaviour {
 	public float maxLandingSpeed = 1f;
 	public AudioSource victoryAudioSource;
 	public bool isLastLevel = false;
+	public float playerScore = 0;			/// <for testing only>
 
 	private bool didFinish = false;
 	private bool didStop = false;
@@ -65,11 +66,21 @@ public class FinishAreaCollider : MonoBehaviour {
 				
 				
 				// Change GameText over time
-				CountDown3(); 
-				Invoke("CountDown2", 1); 
-				Invoke("CountDown1", 2); 
-				Invoke("NextLevel", 3); 
-				
+
+				if(isLastLevel == false)
+				{
+					CountDown3(); 
+					Invoke("CountDown2", 2); 
+					Invoke("CountDown1", 4); 
+					Invoke("NextLevel", 6); 
+				}
+				else
+				{
+					EndOfGameText1();
+					Invoke("EndOfGameText2", 3);
+					Invoke("EndOfGameText3", 6);
+					Invoke("NextLevel", 9); 
+				}
 			}
 		}
 
@@ -90,6 +101,19 @@ public class FinishAreaCollider : MonoBehaviour {
 	void CountDown1()
 	{
 		gameText.text = "NEXT STAGE IN 1..";
+	}
+	void EndOfGameText1()
+	{
+		gameText.gameObject.SetActive (true);
+		gameText.text = " Congratulations";
+	}
+	void EndOfGameText2()
+	{
+		gameText.text = "Your score is...";
+	}
+	void EndOfGameText3()
+	{
+		gameText.text = playerScore.ToString(); 
 	}
 	void NextLevel()
 	{
