@@ -4,12 +4,13 @@ using System.Collections;
 // Import Text library
 using UnityEngine.UI;
 
-public class FinishAreaCollider : MonoBehaviour {
-
+public class FinishAreaCollider : MonoBehaviour 
+{
 	public Text gameText;
 	public float maxLandingSpeed = 1f;
 	public AudioSource victoryAudioSource;
 	public bool isLastLevel = false;
+	public float playerScore = 0;			
 
 	private bool didFinish = false;
 	private bool didStop = false;
@@ -17,18 +18,23 @@ public class FinishAreaCollider : MonoBehaviour {
 
 	private Collider2D triggerCollider;
 
-	void OnTriggerEnter2D(Collider2D other) {
+	void OnTriggerEnter2D(Collider2D other) 
+	{
 		isInsideTriggerBox = true;
 		triggerCollider = other;
 	}
 
-	void OnTriggerExit2D(Collider2D other) {
+	void OnTriggerExit2D(Collider2D other) 
+	{
 		isInsideTriggerBox = false;		
 	}
 
 	void FixedUpdate()
 	{
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 		if(isInsideTriggerBox && !didFinish)
 		{
 			// Check if the Lander stopped.
@@ -36,10 +42,8 @@ public class FinishAreaCollider : MonoBehaviour {
 
 			Debug.Log("Vel:" + colliderVelocity);
 
-
 			// The Lander must completely stop or slow down enough in order to properly land on the landing pad
 			didStop = (colliderVelocity - maxLandingSpeed) <= 0;
-
 
 			if(didStop)
 			{
@@ -63,48 +67,74 @@ public class FinishAreaCollider : MonoBehaviour {
 				Debug.Log ("Fireworks: " + fireworks);
 				if(fireworks != null)
 					fireworks.gameObject.SetActive (true);
-				
-				//GameManager.LoadNextLevel();
-				
-				
-				
-				// Change GameText over time
-				CountDown3(); 
-				Invoke("CountDown2", 1); 
-				Invoke("CountDown1", 2); 
-				Invoke("NextLevel", 3); 
-				
+
+				// Change GameText over time (to next level)
+				if(isLastLevel == false)
+				{
+					CountDown3(); 
+					Invoke("CountDown2", 2); 
+					Invoke("CountDown1", 4); 
+					Invoke("NextLevel", 6); 
+				}
+				// Change GameText over time (end of game)
+				else
+				{
+					EndOfGameText1();
+					Invoke("EndOfGameText2", 3);
+					Invoke("EndOfGameText3", 6);
+					Invoke("NextLevel", 9); 
+				}
 			}
 		}
-
-
 	}
-
-	//I think this part below would have to be changed to alert the player if they're score
-	//qualifies for the top ten, if not then it should just go back to the main menu
+	
 	void CountDown3()
 	{
 		gameText.gameObject.SetActive (true);
 		gameText.text = "NEXT STAGE IN 3..";
 	}
+
 	void CountDown2()
 	{
 		gameText.text = "NEXT STAGE IN 2..";
 	}
+
 	void CountDown1()
 	{
 		gameText.text = "NEXT STAGE IN 1..";
 	}
+
+	void EndOfGameText1()
+	{
+		gameText.gameObject.SetActive (true);
+		gameText.text = " Congratulations";
+	}
+
+	void EndOfGameText2()
+	{
+		gameText.text = "Your score is...";
+	}
+
+	void EndOfGameText3()
+	{
+		gameText.text = playerScore.ToString(); 
+	}
+
 	void NextLevel()
 	{
+<<<<<<< HEAD
 		if (isLastLevel) {
 			ScoreManager.FinalScore();
+=======
+		if (isLastLevel) 
+		{
+>>>>>>> origin/master
 			GameManager.LoadLevel(5);
-		} else {
+		} 
+		else 
+		{
 			gameText.text = "LOADING..";
 			GameManager.LoadNextLevel ();
-
 		}
-
 	}
 }
