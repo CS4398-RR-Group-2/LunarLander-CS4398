@@ -229,6 +229,8 @@ public class LanderControllerScript : MonoBehaviour {
 	//HP handler
 	void OnCollisionEnter2D(Collision2D coll){
 
+		Debug.Log ("collision");
+
 		xVelocity = Mathf.Abs (landerRigidBody.velocity.x);
 		yVelocity = Mathf.Abs (landerRigidBody.velocity.y);
 
@@ -276,8 +278,6 @@ public class LanderControllerScript : MonoBehaviour {
 		int frame = (int)(healthAmount / (100/14));
 		frame = 14 - frame;
 		landerSpriteRenderer.sprite = spriteTest [frame];
-
-
 	}
 
 	

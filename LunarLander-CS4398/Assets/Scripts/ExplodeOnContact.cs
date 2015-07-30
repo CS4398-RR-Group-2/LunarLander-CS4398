@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class ExplodeOnContact : MonoBehaviour {
-
+	
 	public GameObject explosion;
 	public float explosionLifetime = 0.5f;
 
@@ -21,7 +21,16 @@ public class ExplodeOnContact : MonoBehaviour {
 		GameObject newMeteor = (GameObject) Instantiate (explosion, this.gameObject.transform.position, this.gameObject.transform.rotation);
 		// Destroy the meteor after it's lifetime ends
 		Destroy(newMeteor, explosionLifetime); 
+		Destroy (this.gameObject);
+	}
 
+
+
+	void OnCollisionEnter2D(Collision2D other) {		
+		// Spawn Object
+		GameObject newMeteor = (GameObject) Instantiate (explosion, this.gameObject.transform.position, this.gameObject.transform.rotation);
+		// Destroy the meteor after it's lifetime ends
+		Destroy(newMeteor, explosionLifetime); 
 		Destroy (this.gameObject);
 	}
 
