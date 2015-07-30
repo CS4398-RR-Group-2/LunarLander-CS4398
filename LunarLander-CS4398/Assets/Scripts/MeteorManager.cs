@@ -61,6 +61,41 @@ public class MeteorManager : MonoBehaviour {
 		float spawnY = spawnTarget.position.y + spawnHeight;
 		float spawnX = Random.Range(spawnTarget.position.x - spawnWidth, spawnTarget.position.x + spawnWidth);
 
+
+
+		// New Spawning Code
+		int direction = (int)(Random.Range (0, 4));
+
+		switch (direction) {
+			
+			// Spawn From Left
+		case 0:
+			spawnX = spawnTarget.position.x - spawnWidth;
+			spawnY = Random.Range(spawnTarget.position.y - spawnWidth, spawnTarget.position.y + spawnWidth);
+			break;
+			
+			// Spawn From Right
+		case 1:
+			spawnX = spawnTarget.position.x + spawnWidth;
+			spawnY = Random.Range(spawnTarget.position.y - spawnWidth, spawnTarget.position.y + spawnWidth);
+			break;
+			
+			// Spawn From Top
+		case 2:
+			spawnY = spawnTarget.position.x + spawnWidth;
+			spawnX = Random.Range(spawnTarget.position.x - spawnWidth, spawnTarget.position.x + spawnWidth);
+			break;
+
+			// Spawn From Bottom
+		default:
+			spawnY = spawnTarget.position.x - spawnWidth;
+			spawnX = Random.Range(spawnTarget.position.x - spawnWidth, spawnTarget.position.x + spawnWidth);
+			break;
+
+		}
+
+
+
 	
 
 		Vector2 spawnPos = spawnTarget.position;

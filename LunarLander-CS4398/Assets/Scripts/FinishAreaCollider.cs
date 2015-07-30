@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 // Import Text library
@@ -12,8 +12,10 @@ public class FinishAreaCollider : MonoBehaviour {
 	public float maxLandingSpeed = 1f;
 	public AudioSource victoryAudioSource;
 	public bool isLastLevel = false;
-	public float playerScore = 0;			/// <for testing only>
 	public int key;
+
+	public float playerScore = 0;		
+	public bool isObjectiveScene = false;
 
 	private bool didFinish = false;
 	private bool didStop = false;
@@ -32,7 +34,6 @@ public class FinishAreaCollider : MonoBehaviour {
 
 	void FixedUpdate()
 	{
-
 
 
 		if(isInsideTriggerBox && !didFinish)
@@ -76,7 +77,15 @@ public class FinishAreaCollider : MonoBehaviour {
 				
 				// Change GameText over time
 
-				if(isLastLevel == false)
+				if(isObjectiveScene == true)
+				{
+					fireworks = null;
+					victoryAudioSource = null;
+					ExitObjectiveScene();
+					Invoke("NextLevel", 6);
+				}
+				// Change GameText over time (to next level)
+				else if(isLastLevel == false)
 				{
 					CountDown3(); 
 					Invoke("CountDown2", 2); 
@@ -150,11 +159,20 @@ public class FinishAreaCollider : MonoBehaviour {
 
 	void NextLevel()
 	{
-		
-		if (isLastLevel) {
+
+
+		if (isObjectiveScene)
+		{
+			GameManager.LoadLevel(1);
+		}
+		else if (isLastLevel)
+		{
+			ScoreManager.FinalScore();
 			GameManager.LoadLevel(5);
-		} else {
-			gameText.text = "LOADING..";
+		} 
+		else 
+		{
+			gameText.text = "";
 			GameManager.LoadNextLevel ();
 
 		}
@@ -169,4 +187,19 @@ public class FinishAreaCollider : MonoBehaviour {
 		
 		PlayerPrefs.SetString ((key+1).ToString (), initialsKey);
 	}
+
+	void ExitObjectiveScene()
+	{
+		gameText.gameObject.SetActive (true);
+		gameText.text = "";
+	}
+/*	void ToContinue(bool isObjectiveScene)
+	{
+		if (isObjectiveScene == true) 
+		{
+			didFinish = true;
+			didStop = true;
+			isInsideTriggerBox = true;
+		}
+	}*/
 }
