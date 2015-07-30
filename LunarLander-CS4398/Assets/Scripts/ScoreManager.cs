@@ -19,8 +19,7 @@ public  class ScoreManager : MonoBehaviour {
 	void Start () {
 		topScores = new int[DEFAULT_NUMBER_OF_SCORES];
 		for (int i = 0; i < DEFAULT_NUMBER_OF_SCORES; i++) {
-			highScoreKey = "HighScore" + (i + 1).ToString ();
-			topScores [i] = PlayerPrefs.GetInt (highScoreKey, 0);
+			topScores [i] = PlayerPrefs.GetInt (highScoreKey + (i + 1).ToString(), 0);
 			if(topScores[i] != 0){
 				scoresOnLB++;
 			}
@@ -51,31 +50,36 @@ public  class ScoreManager : MonoBehaviour {
 		}
 	}
 
-	static public bool NewHighscore(ref int index){
-		for (int i = 0; i < 10; i++) {
-			if (score > topScores [i]) {
+	static private bool NewHighscoreHelper(ref int index){
+		for (; index < 10; index++) {
+			if (score > topScores [index]) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	static public void FinalScore(){
-		int index = 0;
-		//LeaderBoardManager board;
+	static public bool NewHighscore(ref int index){
+
 		if (scoresOnLB == 0) {
 			PlayerPrefs.SetInt(highScoreKey + (index + 1).ToString(),score);
-			return;
+			return true;
 		}
-		if (NewHighscore (ref index)) {
+		if (NewHighscoreHelper (ref index)) {
 			for(int j = scoresOnLB; j > index; j--){
 				PlayerPrefs.SetInt(highScoreKey + (j+1).ToString(),PlayerPrefs.GetInt(highScoreKey + j.ToString()));
+				PlayerPrefs.SetString((j+1).ToString(),PlayerPrefs.GetString(j.ToString()));
 			}
 			PlayerPrefs.SetInt(highScoreKey + (index + 1).ToString(),score);
+			PlayerPrefs.Save();
+			return true;
 		} else {
 			Debug.Log ("Did not get a top 10 highscore");
+			return false;
 		}
 	}
+
+
 
 
 
