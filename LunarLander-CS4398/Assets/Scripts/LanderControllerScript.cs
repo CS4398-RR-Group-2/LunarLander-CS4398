@@ -275,7 +275,6 @@ public class LanderControllerScript : MonoBehaviour {
 	{
 		int frame = (int)(healthAmount / (100/14));
 		frame = 14 - frame;
-		Debug.Log ("Frame " + frame);
 		landerSpriteRenderer.sprite = spriteTest [frame];
 
 
