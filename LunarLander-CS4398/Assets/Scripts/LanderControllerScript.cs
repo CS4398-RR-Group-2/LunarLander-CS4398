@@ -262,7 +262,7 @@ public class LanderControllerScript : MonoBehaviour {
 	void startThrusterAudio()
 	{
 		// Play the sound
-		if(!thrusterAudio.isPlaying && !isMainMenuScreen)
+		if(!thrusterAudio.isPlaying && !isMainMenuScreen && thrusterAudio)
 			thrusterAudio.Play ();
 	}
 
