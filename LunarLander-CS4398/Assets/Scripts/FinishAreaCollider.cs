@@ -1,91 +1,140 @@
-using UnityEngine;
-using System.Collections;
+/* FinishAreaCollider.cs
+ * 
+ * This file is used to determine if the lander is within proximity of the target landing 
+ * area. If the lander is within proximity of the target area, fireworks and an audio clip 
+ * is played. The player's score is shown as well as text counting down to the next 
+ * level. The next level is loaded if available, otherwise the leaderboard is displayed. 
+ * If the lander is not within proximity of the target area, the game continues. 
+ * 
+ * This file is to be used as a script for LunarLander-CS4398
+*/
 
-// Import Text library
+using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
-public class FinishAreaCollider : MonoBehaviour {
+/// <summary>
+/// Determines if the player has controlled the lander onto the target area. If so,
+/// the player is congratulated with fireworks, text, and their score is displayed. A 
+/// count down occurs, then the next level is loaded if available, otherwise 
+/// the leaderboard is shown to the player. If the lander is not on the target area,
+/// the game continues.
+/// </summary>
+public class FinishAreaCollider : MonoBehaviour 
+{
+	/// <summary>
+	/// Holds end of level text.
+	/// </summary>
+	public Text gameText;						
 
-	public Text gameText;
-	public InputField inputField;
-	public string initialsKey;
-	public float maxLandingSpeed = 1f;
-	public AudioSource victoryAudioSource;
-	public bool isLastLevel = false;
-	public int key;
+	/// <summary>
+	/// Represents an area to capture user input.
+	/// </summary>
+	public InputField inputField;				
 
+	/// <summary>
+	/// Holds player initials
+	/// </summary>
+	public string initialsKey;		
+
+	/// <summary>
+	/// Holds lander maximum safe landing speed.
+	/// </summary>
+	public float maxLandingSpeed = 1f;			
+
+	/// <summary>
+	/// Used to represent an audio clip.
+	/// </summary>
+	public AudioSource victoryAudioSource;		
+
+	/// <summary>
+	/// Used to determine if game is on the last level.
+	/// </summary>
+	public bool isLastLevel = false;	
+
+	/// <summary>
+	/// A number used to help store the player initials.
+	/// </summary>
+	public int key;								
+
+	/// <summary>
+	/// Used to store player score.
+	/// </summary>
 	public float playerScore = 0;		
-	public bool isObjectiveScene = false;
 
-	private bool didFinish = false;
-	private bool didStop = false;
-	private bool isInsideTriggerBox = false;
+	/// <summary>
+	/// Used to represent if the player has finished the level.
+	/// </summary>
+	private bool didFinish = false;				
 
-	private Collider2D triggerCollider;
+	/// <summary>
+	/// Used to determine if the lander is at a stop.
+	/// </summary>
+	private bool didStop = false;				
 
-	void OnTriggerEnter2D(Collider2D other) {
+	/// <summary>
+	/// Used to determine if the lander is within proximity of the 
+	/// trigger (target area) box.
+	/// </summary>
+	private bool isInsideTriggerBox = false;	
+
+	/// <summary>
+	/// The trigger collider.
+	/// </summary>
+	private Collider2D triggerCollider;			
+
+	/// <summary>
+	/// Determines whether the lander has landed on the target.
+	/// </summary>
+	/// <param name="other"> If true it determines that the lander has landed on the target. </param>
+	void OnTriggerEnter2D(Collider2D other) 
+	{
 		isInsideTriggerBox = true;
 		triggerCollider = other;
 	}
 
-	void OnTriggerExit2D(Collider2D other) {
+	/// <summary>
+	/// Determines whether the lander has landed on the target.
+	/// </summary>
+	/// <param name="other"> If true it determines that the lander has not landed on the target. </param>
+	void OnTriggerExit2D(Collider2D other) 
+	{
 		isInsideTriggerBox = false;		
 	}
 
+	/// <summary>
+	/// Checks for lander safe landing, if so fireworks, audio, and gametext are witnessed by the player
+	/// then the next level or leaderboard is loaded. Otherwise, the game continues.
+	/// </summary>
 	void FixedUpdate()
 	{
-
-
 		if(isInsideTriggerBox && !didFinish)
 		{
-			// Check if the Lander stopped.
 			float colliderVelocity = triggerCollider.attachedRigidbody.velocity.magnitude;
-
-//			Debug.Log("Vel:" + colliderVelocity);
-
-
-			// The Lander must completely stop or slow down enough in order to properly land on the landing pad
 			didStop = (colliderVelocity - maxLandingSpeed) <= 0;
-
 
 			if(didStop)
 			{
-
 				didFinish = true;
 				didStop = true;
 				int finalLevelScore;
 				finalLevelScore = (int)Mathf.Ceil((float)(triggerCollider.gameObject.GetComponent<LanderControllerScript>().fuelAmount * .02));
 				ScoreManager.AddScore(finalLevelScore);
 
-
 				if(victoryAudioSource != null)
 				{
 					victoryAudioSource.Play();
-					//victorySound.play();
-					//AudioSource.PlayClipAtPoint(victorySound, this.transform.position);
 				}
 
 				Transform fireworks = this.transform.parent.Find("FireworksEffect");
-				
 				Debug.Log ("Fireworks: " + fireworks);
-				if(fireworks != null)
-					fireworks.gameObject.SetActive (true);
-				
-				//GameManager.LoadNextLevel();
-				
-				
-				
-				// Change GameText over time
 
-				if(isObjectiveScene == true)
+				if(fireworks != null)
 				{
-					fireworks = null;
-					victoryAudioSource = null;
-					ExitObjectiveScene();
-					Invoke("NextLevel", 6);
+					fireworks.gameObject.SetActive (true);
 				}
-				// Change GameText over time (to next level)
-				else if(isLastLevel == false)
+
+				if(isLastLevel == false)
 				{
 					CountDown3(); 
 					Invoke("CountDown2", 2); 
@@ -96,11 +145,13 @@ public class FinishAreaCollider : MonoBehaviour {
 				{
 					Invoke("EndOfGameText1",0);
 
-
-					if(ScoreManager.NewHighscore(ref key)){
-						Invoke("getInitials",3);
-						Invoke("NextLevel",12 ); 
-					}else{
+					if(ScoreManager.NewHighscore(ref key))
+					{
+						Invoke("getInitials", 3);
+						Invoke("NextLevel", 20); 
+					}
+					else
+					{
 						Invoke("EndOfGameText2", 3);
 						Invoke("EndOfGameText3", 6);
 						Invoke("NextLevel", 9); 
@@ -108,98 +159,92 @@ public class FinishAreaCollider : MonoBehaviour {
 				}
 			}
 		}
-
-
 	}
-
-	//I think this part below would have to be changed to alert the player if they're score
-	//qualifies for the top ten, if not then it should just go back to the main menu
+	
+	/// <summary>
+	/// Initiates function calls which mimic a countdown 1/3
+	/// </summary>
 	void CountDown3()
 	{
 		gameText.gameObject.SetActive (true);
 		gameText.text = "NEXT STAGE IN 3..";
 	}
+
+	/// <summary>
+	/// Continues the countdown	2/3
+	/// </summary>
 	void CountDown2()
 	{
 		gameText.text = "NEXT STAGE IN 2..";
 	}
+
+	/// <summary>
+	/// Finishes the countdown 3/3
+	/// </summary>
 	void CountDown1()
 	{
 		gameText.text = "NEXT STAGE IN 1..";
 	}
+
+	/// <summary>
+	/// Initiates the end of game text display 1/3
+	/// </summary>
 	void EndOfGameText1()
 	{
 		gameText.gameObject.SetActive (true);
 		gameText.text = " Congratulations";
 	}
+
+	/// <summary>
+	/// Continues the end of game text 2/3
+	/// </summary>
 	void EndOfGameText2()
 	{
 		gameText.text = "Your score is...";
 	}
+
+	/// <summary>
+	/// Continues the end of game text 3/3
+	/// </summary>
 	void EndOfGameText3()
 	{
 		gameText.text = ScoreManager.score.ToString(); 
 	}
+
+	/// <summary>
+	/// Gets the player's initials if they attain a high score.
+	/// </summary>
 	void getInitials()
 	{
-		gameText.text = "You have a new highscore, Enter your initials: "; 
-
+		gameText.text = "You have a new highscore, Enter your initials and wait: "; 
 		inputField.gameObject.SetActive (true);
-		
-		
-	
-
 		Invoke ("wait", 5);
-
-	
-
 	}
 
-
-
+	/// <summary>
+	/// Loads the next level if available, otherwise the leaderboard is loaded
+	/// </summary>
 	void NextLevel()
 	{
-
-
-		if (isObjectiveScene)
+		if (isLastLevel)
 		{
-			GameManager.LoadLevel(1);
-		}
-		else if (isLastLevel)
-		{
-			ScoreManager.FinalScore();
+//			ScoreManager.FinalScore();
 			GameManager.LoadLevel(5);
 		} 
 		else 
 		{
 			gameText.text = "";
 			GameManager.LoadNextLevel ();
-
 		}
-
 	}
 
-	void wait(){
-
-		initialsKey = inputField.text;
-		
-		Debug.Log ("Key: " + initialsKey);
-		
-		PlayerPrefs.SetString ((key+1).ToString (), initialsKey);
-	}
-
-	void ExitObjectiveScene()
+	/// <summary>
+	/// Updates player initials into the leaderboard.
+	/// </summary>
+	void wait()
 	{
-		gameText.gameObject.SetActive (true);
-		gameText.text = "";
+		initialsKey = inputField.text;	
+		Debug.Log("Key: " + initialsKey);
+		PlayerPrefs.SetString((key + 1).ToString(), initialsKey);
 	}
-/*	void ToContinue(bool isObjectiveScene)
-	{
-		if (isObjectiveScene == true) 
-		{
-			didFinish = true;
-			didStop = true;
-			isInsideTriggerBox = true;
-		}
-	}*/
 }
