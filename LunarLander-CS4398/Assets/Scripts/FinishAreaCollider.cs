@@ -121,7 +121,12 @@ public class FinishAreaCollider : MonoBehaviour
 
 				Debug.Log("TriggerCollider: " + triggerCollider);
 
-				finalLevelScore = (int)Mathf.Ceil((float)(triggerCollider.gameObject.GetComponent<LanderControllerScript>().fuelAmount * .02));
+				LanderControllerScript landScript = triggerCollider.gameObject.GetComponent<LanderControllerScript>();
+				if(!landScript)
+					landScript = triggerCollider.gameObject.GetComponentInParent<LanderControllerScript>();
+
+
+				finalLevelScore = (int)Mathf.Ceil((float)(landScript.fuelAmount * .02));
 				ScoreManager.AddScore(finalLevelScore);
 
 				if(victoryAudioSource != null)
