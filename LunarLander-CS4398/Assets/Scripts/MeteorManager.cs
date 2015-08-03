@@ -26,8 +26,9 @@ public class MeteorManager : MonoBehaviour {
 
 	// Spawn meteors from 0 - 10 units to the left or right of the lander.
 	private float spawnWidth = 20f;
-
+	
 	private bool disableMeteors = true;
+	private bool disableRockets = true;
 
 	void Update()
 	{
@@ -35,6 +36,13 @@ public class MeteorManager : MonoBehaviour {
 			print ("space key was pressed");
 			
 			disableMeteors = !disableMeteors;
+			
+			return;
+		}
+		if (Input.GetKeyDown ("y")) {
+			print ("space key was pressed");
+			
+			disableRockets = !disableRockets;
 			
 			return;
 		}
@@ -49,7 +57,7 @@ public class MeteorManager : MonoBehaviour {
 
 	void Spawn()
 	{
-
+		
 		if(disableMeteors)
 		{
 			return;

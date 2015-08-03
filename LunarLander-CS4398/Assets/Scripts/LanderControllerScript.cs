@@ -260,7 +260,7 @@ public class LanderControllerScript : MonoBehaviour {
 	void startThrusterAudio()
 	{
 		// Play the sound
-		if(!thrusterAudio.isPlaying && !isMainMenuScreen)
+		if(!thrusterAudio.isPlaying && !isMainMenuScreen && thrusterAudio && thrusterAudio.isActiveAndEnabled)
 			thrusterAudio.Play ();
 	}
 
@@ -275,6 +275,8 @@ public class LanderControllerScript : MonoBehaviour {
 	{
 		int frame = (int)(healthAmount / (100/14));
 		frame = 14 - frame;
+		//Debug.Log ("Frame " + frame);
+
 		landerSpriteRenderer.sprite = spriteTest [frame];
 	}
 

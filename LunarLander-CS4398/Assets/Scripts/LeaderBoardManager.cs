@@ -9,35 +9,29 @@ public class LeaderBoardManager : MonoBehaviour {
 	string highScoreKey = "HighScore";
 	Text leadershipBoardUI;
 	string[] leadershipBoardText;
-	string displayFormat;
+	string userInput;
 	int count = 0;
 
 
 	// Use this for initialization
 	void Start () {
-		ScoreManager.FinalScore ();
+		//PlayerPrefs.DeleteAll ();
 		leadershipBoardUI = GetComponent<Text>();
+		leadershipBoardUI.text = ""; 
 
 		GetLeadershipBoard ();
 
 	
 	}
-
-	void EnterNewName(int index){
-
-	}
+	
 
 	void GetLeadershipBoard(){
 		for (int i = 0; i < 10; i++) {
-			leadershipBoardUI.text += PlayerPrefs.GetString (highscorePersonKey + i + 1, "XXX") + ": " + 
-				(PlayerPrefs.GetInt (highScoreKey + (i + 1), 0)).ToString() + "\n";
+			leadershipBoardUI.text += PlayerPrefs.GetString ((i + 1).ToString(), "XXX") + ": " + 
+				(PlayerPrefs.GetInt (highScoreKey + (i + 1).ToString(), 0)).ToString() + "\n";
 		}
 
 	}
 	
-	// Update is called once per frame
-	void Update () {
 
-	
-	}
 }
