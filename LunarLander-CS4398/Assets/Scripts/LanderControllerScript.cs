@@ -9,8 +9,7 @@ public class LanderControllerScript : MonoBehaviour {
 	public GameObject leftThruster;
 	public GameObject rightThruster;	
 	public AudioSource thrusterAudio;
-
-	public GameObject fuelGauges;
+	
 
 	public float thrustAcceleration = 5f;
 	public float thrustRotation = 5f;
@@ -229,7 +228,6 @@ public class LanderControllerScript : MonoBehaviour {
 	//HP handler
 	void OnCollisionEnter2D(Collision2D coll){
 
-		Debug.Log ("collision");
 
 		xVelocity = Mathf.Abs (landerRigidBody.velocity.x);
 		yVelocity = Mathf.Abs (landerRigidBody.velocity.y);

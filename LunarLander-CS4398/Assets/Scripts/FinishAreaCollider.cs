@@ -49,8 +49,8 @@ public class FinishAreaCollider : MonoBehaviour
 				didFinish = true;
 				didStop = true;
 				int finalLevelScore;
-				finalLevelScore = (int)Mathf.Ceil((float)(triggerCollider.gameObject.GetComponent<LanderControllerScript>().fuelAmount * .02));
-				ScoreManager.AddScore(finalLevelScore);
+//				finalLevelScore = (int)Mathf.Ceil((float)(triggerCollider.gameObject.GetComponent<LanderControllerScript>().fuelAmount * .02));
+//				ScoreManager.AddScore(finalLevelScore);
 
 
 				if(victoryAudioSource != null)
