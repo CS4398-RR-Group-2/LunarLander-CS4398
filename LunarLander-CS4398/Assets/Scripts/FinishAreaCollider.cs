@@ -119,11 +119,19 @@ public class FinishAreaCollider : MonoBehaviour
 				didStop = true;
 				int finalLevelScore;
 
-				Debug.Log("TriggerCollider: " + triggerCollider);
 
 				LanderControllerScript landScript = triggerCollider.gameObject.GetComponent<LanderControllerScript>();
 				if(!landScript)
 					landScript = triggerCollider.gameObject.GetComponentInParent<LanderControllerScript>();
+
+				if(!landScript)
+				{
+					didStop = false;
+					return;
+				}
+
+
+				Debug.Log("TriggerCollider: " + triggerCollider);
 
 
 				finalLevelScore = (int)Mathf.Ceil((float)(landScript.fuelAmount * .02));
