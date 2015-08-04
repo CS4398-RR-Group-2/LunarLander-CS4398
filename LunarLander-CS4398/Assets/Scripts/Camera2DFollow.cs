@@ -1,6 +1,9 @@
 /* FinishAreaCollider.cs
  * 
- * 
+ * This class is used to instantiate and control the behavior of a 2D camera. If
+ * the camera's target is accelerating or changing position the camera moves ahead
+ * and follows the target. Otherwise, the camera returns to the target placing it
+ * in the center of the camera view.
  * 
  * This file is to be used as a script for LunarLander-CS4398
 */
@@ -11,12 +14,15 @@ using UnityEngine;
 namespace UnityStandardAssets._2D
 {
 	/// <summary>
-	/// 
+	/// This class is used to instantiate and control the behavior of a 2D camera. If
+	/// the camera's target is accelerating or changing position the camera moves ahead
+	/// and follows the target. Otherwise, the camera returns to the target placing it
+	/// in the center of the camera view.
 	/// </summary>
     public class Camera2DFollow : MonoBehaviour
     {
 		/// <summary>
-		/// Used to represent a target for an object.
+		/// Used to represent a target for the camera to follow.
 		/// </summary>
         public Transform target;
 
@@ -77,13 +83,16 @@ namespace UnityStandardAssets._2D
 			transform.parent = null;
         }
 
-        // Update is called once per frame
+		/// <summary>
+		/// Updates the position of the camera if its target is accelerating or changing 
+		/// direction, otherwise the camera moves towards the target. Update is called 
+		/// once per frame. 
+		/// </summary>
         private void Update()
         {
 			if (target == null)
 				return;
 
-            // only update lookahead pos if accelerating or changed direction
             float xMoveDelta = (target.position - m_LastTargetPosition).x;
             bool updateLookAheadTarget = Mathf.Abs(xMoveDelta) > lookAheadMoveThreshold;
 

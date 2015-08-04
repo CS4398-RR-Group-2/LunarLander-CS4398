@@ -1,10 +1,11 @@
 /* FinishAreaCollider.cs
  * 
  * This file is used to determine if the lander is within proximity of the target landing 
- * area. If the lander is within proximity of the target area, fireworks and an audio clip 
- * is played. The player's score is shown as well as text counting down to the next 
- * level. The next level is loaded if available, otherwise the leaderboard is displayed. 
- * If the lander is not within proximity of the target area, the game continues. 
+ * area. If the lander has landed upright within proximity of the target area, fireworks 
+ * are shown and an audio clip is played. The player's score is visible as well as text 
+ * counting down to the next level. The next level is loaded if available, otherwise the 
+ * leaderboard is displayed. If the lander is not within proximity of the target area, 
+ * the game continues. 
  * 
  * This file is to be used as a script for LunarLander-CS4398
 */
@@ -14,26 +15,27 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// Determines if the player has controlled the lander onto the target area. If so,
-/// the player is congratulated with fireworks, text, and their score is displayed. A 
-/// count down occurs, then the next level is loaded if available, otherwise 
-/// the leaderboard is shown to the player. If the lander is not on the target area,
-/// the game continues.
+/// This class controls the behavior of the finish area collider and tests if the player 
+/// has landed the lander upright onto the target area. If the lander is not on the target 
+/// area, the game continues. If it is, the player is congratulated with fireworks, text, 
+/// and their score is displayed. A countdown occurs, then the next level is loaded if 
+/// available. If not and the player has a highscore the player is asked to enter their 
+/// initials which are updated to the leaderboard and it is displayed regardless of player score. 
 /// </summary>
 public class FinishAreaCollider : MonoBehaviour 
 {
 	/// <summary>
-	/// Holds end of level text.
+	/// Holds text displayed at the end of each level.
 	/// </summary>
 	public Text gameText;						
 
 	/// <summary>
-	/// Represents an area to capture user input.
+	/// Represents an area used to capture user input of initials.
 	/// </summary>
 	public InputField inputField;				
 
 	/// <summary>
-	/// Holds player initials
+	/// Holds 3 character player initials.
 	/// </summary>
 	public string initialsKey;		
 
@@ -121,8 +123,6 @@ public class FinishAreaCollider : MonoBehaviour
 
 //				finalLevelScore = (int)Mathf.Ceil((float)(triggerCollider.gameObject.GetComponent<LanderControllerScript>().fuelAmount * .02));
 //				ScoreManager.AddScore(finalLevelScore);
-
-
 
 				LanderControllerScript landScript = triggerCollider.gameObject.GetComponent<LanderControllerScript>();
 				if(!landScript)

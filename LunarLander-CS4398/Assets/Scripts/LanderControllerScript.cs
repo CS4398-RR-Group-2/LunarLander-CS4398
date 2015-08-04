@@ -1,25 +1,84 @@
-﻿using UnityEngine;
+﻿/**LanderControllerScript.cs
+ * 
+ * 
+ * 
+ * This file is to be used as a script for LunarLander-CS4398
+*/ 
+using UnityEngine;
 using System.Collections;
 
-
-
-public class LanderControllerScript : MonoBehaviour {
-
+/// <summary>
+/// 
+/// </summary>
+public class LanderControllerScript : MonoBehaviour 
+{
+	/// <summary>
+	/// A game object which represents the lander's thrusters igniting.
+	/// </summary>
 	public GameObject thrusters;
+
+	/// <summary>
+	/// A game object which represents the lander's left thruster igniting.	
+	/// </summary>
 	public GameObject leftThruster;
+
+	/// <summary>
+	/// A game object which represents the lander's right thruster igniting.
+	/// </summary>
 	public GameObject rightThruster;	
+
+	/// <summary>
+	/// An audtio source which represents the audio clip played when the any
+	/// of lander's thrusters initiate.
+	/// </summary>
 	public AudioSource thrusterAudio;
 	
-
+	/// <summary>
+	/// A variable which controls the rate at which the lander will 
+	/// accelerate when the main thrusters are initiated.
+	/// </summary>
 	public float thrustAcceleration = 5f;
+
+	/// <summary>
+	/// A variable which controls the speed at which the lander will rotate
+	/// on the Z-axis when the left or right thrusters are initiated.
+	/// </summary>
 	public float thrustRotation = 5f;
+
+	/// <summary>
+	/// Represents the maximum speed at which the lander may travel.  
+	/// </summary>
 	public float maxSpeed = 10f;
-	public int fuelAmount = 5000; //an arbitrary amount of fuel for the lander
+
+	/// <summary>
+	/// The amount of fuel a lander has at the start of a level.
+	/// </summary>
+	public int fuelAmount = 5000; 
+
+	/// <summary>
+	/// The amount of health a lander has at the start of a level.
+	/// </summary>
 	public float healthAmount = 100;
+
+	/// <summary>
+	/// A boolean variable which is used to represent if the player is
+	/// on the first level.
+	/// </summary>
 	public bool isMainMenuScreen = false;
 
+	/// <summary>
+	/// The velocity at which the lander is traveling along the X-axis.
+	/// </summary>
 	private float xVelocity;
+
+	/// <summary>
+	/// The velocity at which the lander is traveling along the Y-axis.
+	/// </summary>
 	private float yVelocity;
+
+	/// <summary>
+	/// 
+	/// </summary>
 	private float DAMAGE_THRESHOLD = .05f;
 	private float DAMAGE_MULTIPLIER = 3f;
 	private int FUEL_BURN0 = 10;
@@ -30,73 +89,70 @@ public class LanderControllerScript : MonoBehaviour {
 	public Sprite[] spriteTest;
 
 
-	
-	// Use this for initialization
-	void Start () {
+	/// <summary>
+	/// This method is used to instatiate a lander witha rigid body. 
+	/// </summary>
+	void Start ()
+	{
 		hideThrusters ();
 		landerRigidBody = GetComponent<Rigidbody2D>();
-
-
 	}
-	
-	
-	// This function is called every time the physics engine updates. Because the Lander
-	// uses physics, FixedUpdate() should be called instead of Update()
-	void FixedUpdate () {
 
+	/// <summary>
+	/// This function is used to update the lander every time the physics
+	/// engine updates. It registers player input of "1", "2", "3", "4",
+	/// "r", "Up" arrow, "Left" arrow, and "Right" arrow keys in order to 
+	/// rotate the lander clockwise, counter clockwise, initiate thrust, 
+	/// restart level, and level selection.
+	/// </summary>
+	void FixedUpdate () 
+	{
 		showThrusters ();
-
 		landerSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-		//landerSpriteRenderer.sprite = Resources.Load ("simplelander13");
-
 		damageHandler ();
-
-
-
 
 		// Quit Game
 		if (Input.GetKey("escape"))
 			Application.Quit();
 
 		// Level Select
-		if (Input.GetKeyDown ("1")) {			
+		if (Input.GetKeyDown ("1")) 
+		{			
 			Application.LoadLevel("Scene01");			
 			return;
 		}
-		else if (Input.GetKeyDown ("2")) {			
+		else if (Input.GetKeyDown ("2")) 
+		{			
 			Application.LoadLevel("scene_grav_01");			
 			return;
 		}
-		else if (Input.GetKeyDown ("3")) {			
+		else if (Input.GetKeyDown ("3")) 
+		{			
 			Application.LoadLevel("scene_grav_02");			
 			return;
 		}
-		else if (Input.GetKeyDown ("4")) {			
+		else if (Input.GetKeyDown ("4")) 
+		{			
 			Application.LoadLevel("scene_grav_03");			
 			return;
 		}
 
 		// Restart Level
-		if (Input.GetKeyDown ("r")) {
+		if (Input.GetKeyDown ("r"))
+		{
 			GameManager.RestartLevel();
 			return;
 		}
 
-
-
-
-
 		// Lander Controls
-
 		// Get Left/Right Input. This will be used to rotate the Lander.
 		float rotate = Input.GetAxisRaw ("Horizontal");
 		
-		if (rotate != 0) {
-			//applyRotation (rotate);
+		if (rotate != 0) 
+		{
 			// Apply Torque applies rotation to the Physics System
 			if (fuelAmount > 0 && healthAmount > 0)
 				applyTorque(rotate);
-
 
 			// User is rotating clockwise
 			if(rotate > 0)
@@ -125,15 +181,17 @@ public class LanderControllerScript : MonoBehaviour {
 					hideRightThruster();
 				}
 			}
-			
-		} else {
+		} 
+		else
+		{
 			hideLeftThruster();
 			hideRightThruster();
 		}
 		
-		// Get Up/Down Input. This will be used to rotate the Lander.
+		// Get Up input. This will be used to accelerate the Lander.
 		float thrust = Input.GetAxisRaw ("Vertical");
-		if (thrust > 0f) {
+		if (thrust > 0f) 
+		{
 			if(fuelAmount > 0 && healthAmount > 0)
 			{
 				applyThrust(thrust);
@@ -145,15 +203,16 @@ public class LanderControllerScript : MonoBehaviour {
 				hideThrusters();
 			}
 		} 
-		else {
+		else 
+		{
 			hideThrusters();
 		}
-		
 	}
 	
-	
-	
-	
+	/// <summary>
+	/// Applies the thrust.
+	/// </summary>
+	/// <param name="thrust">Thrust.</param>
 	void applyThrust(float thrust)
 	{
 		landerRigidBody.AddForce(transform.up * thrustAcceleration);
