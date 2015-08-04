@@ -35,6 +35,7 @@ public class ExplodeOnContact : MonoBehaviour
 	/// A lander game object.
 	/// </summary>
 	private GameObject lander;
+
 	
 	/// <summary>
 	/// Used for initialization of the lander.

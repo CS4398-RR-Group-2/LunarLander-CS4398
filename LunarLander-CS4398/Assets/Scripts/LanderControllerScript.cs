@@ -45,6 +45,7 @@ public class LanderControllerScript : MonoBehaviour
 	/// </summary>
 	public float thrustRotation = 5f;
 
+
 	/// <summary>
 	/// Represents the maximum speed at which the lander may travel.  
 	/// </summary>
@@ -53,11 +54,12 @@ public class LanderControllerScript : MonoBehaviour
 	/// <summary>
 	/// The amount of fuel a lander has at the start of a level.
 	/// </summary>
-	public int fuelAmount = 5000; 
+	public int fuelAmount = 5000; //an arbitrary amount of fuel for the lander
 
 	/// <summary>
 	/// The amount of health a lander has at the start of a level.
 	/// </summary>
+
 	public float healthAmount = 100;
 
 	/// <summary>
@@ -86,7 +88,7 @@ public class LanderControllerScript : MonoBehaviour
 	private Rigidbody2D landerRigidBody;
 	private SpriteRenderer landerSpriteRenderer;
 
-	public Sprite[] spriteTest;
+	public Sprite[] landerSprites;
 
 
 	/// <summary>
@@ -336,7 +338,7 @@ public class LanderControllerScript : MonoBehaviour
 		frame = 14 - frame;
 		//Debug.Log ("Frame " + frame);
 
-		landerSpriteRenderer.sprite = spriteTest [frame];
+		landerSpriteRenderer.sprite = landerSprites [frame];
 	}
 
 	
