@@ -145,9 +145,7 @@ public class FinishAreaCollider : MonoBehaviour {
 		gameText.text = "You have a new highscore, Enter your initials: "; 
 
 		inputField.gameObject.SetActive (true);
-		
-		
-	
+		inputField.text = "";
 
 		Invoke ("wait", 5);
 
@@ -167,7 +165,7 @@ public class FinishAreaCollider : MonoBehaviour {
 		}
 		else if (isLastLevel)
 		{
-			ScoreManager.FinalScore();
+//			ScoreManager.FinalScore();
 			GameManager.LoadLevel(5);
 		} 
 		else 
@@ -187,6 +185,9 @@ public class FinishAreaCollider : MonoBehaviour {
 		
 		PlayerPrefs.SetString ((key+1).ToString (), initialsKey);
 	}
+
+
+
 
 	void ExitObjectiveScene()
 	{
