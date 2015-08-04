@@ -4,11 +4,14 @@ using System.Collections;
 public class ExplodeOnContact : MonoBehaviour {
 	
 	public GameObject explosion;
+	private GameObject lander;
+
 	public float explosionLifetime = 0.5f;
+
 	public AudioClip explosionSound;
 
 	// Use this for initialization
-	private GameObject lander;
+
 	
 	// Use this for initialization
 	void Start () {

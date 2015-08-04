@@ -13,7 +13,7 @@ public class LanderControllerScript : MonoBehaviour {
 
 	public float thrustAcceleration = 5f;
 	public float thrustRotation = 5f;
-	public float maxSpeed = 10f;
+	//public float maxSpeed = 10f;
 	public int fuelAmount = 5000; //an arbitrary amount of fuel for the lander
 	public float healthAmount = 100;
 	public bool isMainMenuScreen = false;
@@ -27,7 +27,7 @@ public class LanderControllerScript : MonoBehaviour {
 	private Rigidbody2D landerRigidBody;
 	private SpriteRenderer landerSpriteRenderer;
 
-	public Sprite[] spriteTest;
+	public Sprite[] landerSprites;
 
 
 	
@@ -47,8 +47,6 @@ public class LanderControllerScript : MonoBehaviour {
 		showThrusters ();
 
 		landerSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-		//landerSpriteRenderer.sprite = Resources.Load ("simplelander13");
-
 		damageHandler ();
 
 
@@ -277,7 +275,7 @@ public class LanderControllerScript : MonoBehaviour {
 		frame = 14 - frame;
 		//Debug.Log ("Frame " + frame);
 
-		landerSpriteRenderer.sprite = spriteTest [frame];
+		landerSpriteRenderer.sprite = landerSprites [frame];
 	}
 
 	
