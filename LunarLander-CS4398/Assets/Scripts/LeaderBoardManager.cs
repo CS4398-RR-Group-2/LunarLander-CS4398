@@ -14,7 +14,8 @@ public class LeaderBoardManager : MonoBehaviour {
 
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
 		//PlayerPrefs.DeleteAll ();
 		leadershipBoardUI = GetComponent<Text>();
 		leadershipBoardUI.text = ""; 

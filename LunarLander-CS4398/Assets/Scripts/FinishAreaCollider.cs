@@ -168,7 +168,7 @@ public class FinishAreaCollider : MonoBehaviour
 					if(ScoreManager.NewHighscore(ref key))
 					{
 						Invoke("getInitials", 3);
-						Invoke("NextLevel", 20); 
+						Invoke("NextLevel", 15); 
 					}
 					else
 					{
@@ -236,10 +236,10 @@ public class FinishAreaCollider : MonoBehaviour
 	/// </summary>
 	void getInitials()
 	{
-		gameText.text = "You have a new highscore, Enter your initials and wait: "; 
+		gameText.text = "You have a new highscore, Enter initials and press enter: "; 
 		inputField.gameObject.SetActive (true);
 		inputField.text = "";
-		Invoke ("wait", 5);
+		Invoke ("wait", 10);
 	}
 
 	/// <summary>
