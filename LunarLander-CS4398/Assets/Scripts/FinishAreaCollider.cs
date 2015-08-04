@@ -238,6 +238,7 @@ public class FinishAreaCollider : MonoBehaviour
 	{
 		gameText.text = "You have a new highscore, Enter your initials and wait: "; 
 		inputField.gameObject.SetActive (true);
+		inputField.text = "";
 		Invoke ("wait", 5);
 	}
 
@@ -257,6 +258,7 @@ public class FinishAreaCollider : MonoBehaviour
 			GameManager.LoadNextLevel ();
 		}
 	}
+
 
 	/// <summary>
 	/// Updates player initials into the leaderboard.
