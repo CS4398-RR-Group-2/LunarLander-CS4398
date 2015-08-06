@@ -11,6 +11,9 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// Importing a unity 2D standard library.
+/// </summary>
 namespace UnityStandardAssets._2D
 {
 	/// <summary>

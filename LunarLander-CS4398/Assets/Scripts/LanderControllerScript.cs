@@ -1,14 +1,21 @@
 ﻿/**LanderControllerScript.cs
  * 
- * 
+ * This class defines the controls and behavior of the lander. It hides and displays 
+ * the lander's thrusters when initiated and plays audio. Also, health and fuel are 
+ * set and their depletion is controlled. A damaged lander sprite is displayed 
+ * when the lander takes damage. The lander itself is instantiated. 
  * 
  * This file is to be used as a script for LunarLander-CS4398
 */ 
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
-/// 
+/// This class defines the controls and behavior of the lander. It hides and displays 
+/// the lander's thrusters when initiated and plays audio. Also, health and fuel are 
+/// set and their depletion is controlled. A damaged lander sprite is displayed 
+/// when the lander takes damage. The lander itself is instantiated. 
 /// </summary>
 public class LanderControllerScript : MonoBehaviour 
 {
@@ -67,7 +74,7 @@ public class LanderControllerScript : MonoBehaviour
 	/// on the first level.
 	/// </summary>
 	public bool isMainMenuScreen = false;
-
+	
 	/// <summary>
 	/// The velocity at which the lander is traveling along the X-axis.
 	/// </summary>
@@ -79,15 +86,40 @@ public class LanderControllerScript : MonoBehaviour
 	private float yVelocity;
 
 	/// <summary>
-	/// 
+	/// The total amount of damage a lander can take before becoming inoperable.
 	/// </summary>
 	private float DAMAGE_THRESHOLD = .05f;
+
+	/// <summary>
+	/// A float used to multiply the damage taken by the lander when it collides
+	/// against another object. 
+	/// </summary>
 	private float DAMAGE_MULTIPLIER = 3f;
+
+	/// <summary>
+	/// The amount of fuel used when a burst from the lander's thrusters is initiated.
+	/// </summary>
 	private int FUEL_BURN0 = 10;
+
+	/// <summary>
+	/// The amount of fuel used when a burst from the lander's left or right thrusters
+	/// are initiated. 
+	/// </summary>
 	private int FUEL_BURN1 = 1;
+
+	/// <summary>
+	/// A Rigidbody2D variable which represents a the body of a lander. 
+	/// </summary>
 	private Rigidbody2D landerRigidBody;
+
+	/// <summary>
+	/// A SpriteRenderer variable which represents a image of a lander to be displayed. 
+	/// </summary>
 	private SpriteRenderer landerSpriteRenderer;
 
+	/// <summary>
+	/// An array containing Sprites which represent images of a lander to be displayed.
+	/// </summary>
 	public Sprite[] landerSprites;
 
 
@@ -218,41 +250,40 @@ public class LanderControllerScript : MonoBehaviour
 	void applyThrust(float thrust)
 	{
 		landerRigidBody.AddForce(transform.up * thrustAcceleration);
-
-		
-		//float upDirection = Vector2.up;
-		//landerRigidBody.AddForce(Vector3.up * thrustAcceleration * Time.deltaTime);
-
 	}
-	
+
+	/// <summary>
+	/// Applies rotation to the lander (clockwise counter clockwise).
+	/// </summary>
+	/// <param name="rotation">Rotation.</param>
 	void applyRotation(float rotation)
 	{
-
-		//		Debug.Log ("Rotation = " + transform.rotation.eulerAngles.z);
-		
-
 		float initialRotation = transform.rotation.eulerAngles.z;
 		float finalRotation = initialRotation + (-rotation * thrustRotation);
-		
-		// This Lerp function slowly applies the rotation over time
 		transform.rotation = Quaternion.Lerp ( transform.rotation, Quaternion.Euler(0,0,finalRotation), Time.deltaTime*thrustRotation);
 	}
 
-
+	/// <summary>
+	/// Applies the torque to the lander.
+	/// </summary>
+	/// <param name="rotation">A float vairable which represents the angle or rotation of the lander.</param>
 	void applyTorque(float rotation)
 	{
 		landerRigidBody.AddTorque(-rotation * thrustRotation/10);
 	}
 
-
-	// These two functions show and hide the Thrusters GameObject in the Lander
-	
+	/// <summary>
+	/// This method displays the lander thrusters when thrust is initiated.
+	/// </summary>
 	void showThrusters()
 	{
 		thrusters.SetActive(true);
 		startThrusterAudio();
 	}
-	
+
+	/// <summary>
+	/// This method hides the lander thrusters.
+	/// </summary>
 	void hideThrusters()
 	{
 		if (isMainMenuScreen)
@@ -261,25 +292,37 @@ public class LanderControllerScript : MonoBehaviour
 		thrusters.SetActive(false);
 		stopThrusterAudio();
 	}
-	
+
+	/// <summary>
+	/// This method displays the left lander thruster when rotating left. 
+	/// </summary>
 	void showLeftThruster()
 	{
 		leftThruster.SetActive(true);
 		startThrusterAudio ();
 	}
-	
+
+	/// <summary>
+	/// This method hides the left lander thruster. 
+	/// </summary>
 	void hideLeftThruster()
 	{
 		leftThruster.SetActive(false);
 		stopThrusterAudio();
 	}
-	
+
+	/// <summary>
+	/// This method displays the right lander thruster when rotating right.
+	/// </summary>
 	void showRightThruster()
 	{
 		rightThruster.SetActive(true);
 		startThrusterAudio ();
 	}
-	
+
+	/// <summary>
+	/// This method hides the right lander thruster. 
+	/// </summary>
 	void hideRightThruster()
 	{
 		rightThruster.SetActive(false);
@@ -287,60 +330,56 @@ public class LanderControllerScript : MonoBehaviour
 	}
 
 	//HP handler
-	void OnCollisionEnter2D(Collision2D coll){
-
-
+	/// <summary>
+	/// Controls the amount of damage taken by the lander when an impact occurs
+	/// against another object. 
+	/// </summary>
+	/// <param name="coll">A collision2D variable which represents that a collision
+	/// has occured with the lander and another object.</param>
+	void OnCollisionEnter2D(Collision2D coll)
+	{
 		xVelocity = Mathf.Abs (landerRigidBody.velocity.x);
 		yVelocity = Mathf.Abs (landerRigidBody.velocity.y);
 
-		if ((xVelocity > DAMAGE_THRESHOLD || yVelocity > DAMAGE_THRESHOLD) && healthAmount > 0) {
+		if ((xVelocity > DAMAGE_THRESHOLD || yVelocity > DAMAGE_THRESHOLD) && healthAmount > 0) 
+		{
 			healthAmount = healthAmount - DAMAGE_MULTIPLIER * Mathf.Pow ((xVelocity + yVelocity), 2);
-
 			ScoreManager.SubtractScore(10);
 
 			if (healthAmount <= 0)
-				healthAmount = 0; //game loss sequence should occur
-		}
-	}
-
-	/* 
-	void OnCollisionStay2D(Collision2D coll)
-	{
-		if(coll.gameObject.tag == "winningArea") {
-
-			if(landerRigidBody.velocity == new Vector2(0,0)){
-				Debug.Log ("Win");
+			{
+				healthAmount = 0; 
+				//game loss sequence should occur
 			}
-			else
-				Debug.Log ("Not Landed");
 		}
 	}
-	*/
-	
 
+	/// <summary>
+	/// Begins to play the audio clip for lander thrusters.
+	/// </summary>
 	void startThrusterAudio()
 	{
-		// Play the sound
 		if(!thrusterAudio.isPlaying && !isMainMenuScreen && thrusterAudio && thrusterAudio.isActiveAndEnabled)
 			thrusterAudio.Play ();
 	}
 
+	/// <summary>
+	/// Stops playing the audio clip for the lander thrusters. 
+	/// </summary>
 	void stopThrusterAudio()
 	{
-		// If any of the three thrusters is active, then stop the sound
 		if(!thrusters.activeSelf && !leftThruster.activeSelf && !rightThruster.activeSelf)
 			thrusterAudio.Stop();
 	}
 
+	/// <summary>
+	/// Changes the sprite rendered for the lander depending on the amount of HP 
+	/// the lander has. The less HP the more damaged the lander sprite looks.
+	/// </summary>
 	void damageHandler()
 	{
 		int frame = (int)(healthAmount / (100/14));
 		frame = 14 - frame;
-		//Debug.Log ("Frame " + frame);
-
 		landerSpriteRenderer.sprite = landerSprites [frame];
 	}
-
-	
-
 }

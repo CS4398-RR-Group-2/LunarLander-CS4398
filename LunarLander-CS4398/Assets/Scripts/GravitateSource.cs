@@ -1,8 +1,17 @@
-﻿using UnityEngine;
+﻿/* GravitateSource.cs
+ * 
+ * This class is used as a tag for any game object to be affected by 
+ * other objects with a GravitySource component.
+ * 
+ * This file is to be used as a script for LunarLander-CS4398
+*/ 
+using UnityEngine;
 using System.Collections;
 
-// Any GameObject with a GravitateSource will be affected by objects with a GravitySource Component
-
-public class GravitateSource : MonoBehaviour {
-
+/// <summary>
+/// This class is used as a tag for any game object to be affected by 
+/// other objects with a GravitySource component.
+/// </summary>
+public class GravitateSource : MonoBehaviour
+{
 }

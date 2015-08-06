@@ -9,7 +9,6 @@
  * 
  * This file is to be used as a script for LunarLander-CS4398
 */
-
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,7 +26,7 @@ public class FinishAreaCollider : MonoBehaviour
 	/// <summary>
 	/// Holds text displayed at the end of each level.
 	/// </summary>
-	public Text gameText;						
+	public Text gameText;	
 
 	/// <summary>
 	/// Represents an area used to capture user input of initials.
@@ -258,8 +257,7 @@ public class FinishAreaCollider : MonoBehaviour
 			GameManager.LoadNextLevel ();
 		}
 	}
-
-
+	
 	/// <summary>
 	/// Updates player initials into the leaderboard.
 	/// </summary>

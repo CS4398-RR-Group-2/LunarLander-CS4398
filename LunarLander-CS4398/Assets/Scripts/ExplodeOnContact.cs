@@ -46,7 +46,8 @@ public class ExplodeOnContact : MonoBehaviour
 	}
 	
 	/// <summary>
-	/// Update is called once per frame.
+	/// This method is used to tag an object of an update. Update is called once per 
+	/// frame.
 	/// </summary>
 	void Update () 
 	{}

@@ -1,7 +1,7 @@
 ﻿/* fuelgauges.cs
  * 
  * This class is used to instantiate the lander's fuel gauge and update it
- * when fuel is depleated. 
+ * until all fuel is depleated. 
  * 
  * This file is to be used as a script for LunarLander-CS4398
 */ 
