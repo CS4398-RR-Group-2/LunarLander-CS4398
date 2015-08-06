@@ -116,11 +116,24 @@ public class LanderControllerScript : MonoBehaviour
 	/// A SpriteRenderer variable which represents a image of a lander to be displayed. 
 	/// </summary>
 	private SpriteRenderer landerSpriteRenderer;
+	private bool thrustersOn;
 
 	/// <summary>
 	/// An array containing Sprites which represent images of a lander to be displayed.
 	/// </summary>
 	public Sprite[] landerSprites;
+
+	/// <summary>
+	/// Constructor method used for unit testing
+	/// </summary>
+	public LanderControllerScript(int a, float b)
+	{
+		fuelAmount = a;
+		healthAmount = b;
+	}
+	
+	LanderControllerScript(){
+	}
 
 
 	/// <summary>
@@ -195,7 +208,8 @@ public class LanderControllerScript : MonoBehaviour
 				{
 					applyRotation(rotate);
 					showLeftThruster();
-					fuelAmount = fuelAmount - FUEL_BURN1;
+					depleteFuel(FUEL_BURN1);
+					//fuelAmount = fuelAmount - FUEL_BURN1;
 				}
 				else
 				{
@@ -208,7 +222,8 @@ public class LanderControllerScript : MonoBehaviour
 				{
 					applyRotation(rotate);
 					showRightThruster();
-					fuelAmount = fuelAmount - FUEL_BURN1;
+					depleteFuel(FUEL_BURN1);
+					//fuelAmount = fuelAmount - FUEL_BURN1;
 				}
 				else
 				{
@@ -230,7 +245,8 @@ public class LanderControllerScript : MonoBehaviour
 			{
 				applyThrust(thrust);
 				showThrusters();
-				fuelAmount = fuelAmount - FUEL_BURN0;
+				depleteFuel(FUEL_BURN0);
+				//fuelAmount = fuelAmount - FUEL_BURN0;
 			}
 			else
 			{
@@ -279,6 +295,7 @@ public class LanderControllerScript : MonoBehaviour
 	{
 		thrusters.SetActive(true);
 		startThrusterAudio();
+		thrustersOn = true;
 	}
 
 	/// <summary>
@@ -291,6 +308,7 @@ public class LanderControllerScript : MonoBehaviour
 
 		thrusters.SetActive(false);
 		stopThrusterAudio();
+		thrustersOn = false;
 	}
 
 	/// <summary>
@@ -300,6 +318,7 @@ public class LanderControllerScript : MonoBehaviour
 	{
 		leftThruster.SetActive(true);
 		startThrusterAudio ();
+		thrustersOn = true;
 	}
 
 	/// <summary>
@@ -309,6 +328,7 @@ public class LanderControllerScript : MonoBehaviour
 	{
 		leftThruster.SetActive(false);
 		stopThrusterAudio();
+		thrustersOn = true;
 	}
 
 	/// <summary>
@@ -318,6 +338,7 @@ public class LanderControllerScript : MonoBehaviour
 	{
 		rightThruster.SetActive(true);
 		startThrusterAudio ();
+		thrustersOn = true;
 	}
 
 	/// <summary>
@@ -327,6 +348,7 @@ public class LanderControllerScript : MonoBehaviour
 	{
 		rightThruster.SetActive(false);
 		stopThrusterAudio();
+		thrustersOn = false;
 	}
 
 	//HP handler
@@ -341,9 +363,16 @@ public class LanderControllerScript : MonoBehaviour
 		xVelocity = Mathf.Abs (landerRigidBody.velocity.x);
 		yVelocity = Mathf.Abs (landerRigidBody.velocity.y);
 
+<<<<<<< HEAD
 		if ((xVelocity > DAMAGE_THRESHOLD || yVelocity > DAMAGE_THRESHOLD) && healthAmount > 0) 
 		{
 			healthAmount = healthAmount - DAMAGE_MULTIPLIER * Mathf.Pow ((xVelocity + yVelocity), 2);
+=======
+		if ((xVelocity > DAMAGE_THRESHOLD || yVelocity > DAMAGE_THRESHOLD) && healthAmount > 0) {
+			depleteHealth(xVelocity,yVelocity,DAMAGE_MULTIPLIER);
+			//healthAmount = healthAmount - DAMAGE_MULTIPLIER * Mathf.Pow ((xVelocity + yVelocity), 2);
+
+>>>>>>> origin/master
 			ScoreManager.SubtractScore(10);
 
 			if (healthAmount <= 0)
@@ -382,4 +411,33 @@ public class LanderControllerScript : MonoBehaviour
 		frame = 14 - frame;
 		landerSpriteRenderer.sprite = landerSprites [frame];
 	}
+<<<<<<< HEAD
+=======
+
+	/// <summary>
+	/// Used to deplete fuel based on amount used, used for testing.
+	/// </summary>
+	public void depleteFuel(int amount)
+	{
+		fuelAmount = fuelAmount - amount;
+	}
+	
+	/// <summary>
+	/// Used to deplete heath based on velocity and dmgMultipler, used for testing.
+	/// </summary>
+	public void depleteHealth(float xVelocity, float yVelocity, float dmgMultiplier){
+		healthAmount = healthAmount - dmgMultiplier * Mathf.Pow ((xVelocity + yVelocity), 2);
+	}
+	
+	/// <summary>
+	/// Used for testing, to show whether or not the lander's thrusters are active.
+	/// </summary>
+	public bool getThrustersStatus()
+	{
+		return thrustersOn;
+	}
+
+	
+
+>>>>>>> origin/master
 }

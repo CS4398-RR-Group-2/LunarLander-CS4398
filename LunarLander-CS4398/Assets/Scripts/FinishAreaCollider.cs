@@ -82,7 +82,16 @@ public class FinishAreaCollider : MonoBehaviour
 	/// <summary>
 	/// The trigger collider.
 	/// </summary>
-	private Collider2D triggerCollider;			
+	private Collider2D triggerCollider;		
+
+	public FinishAreaCollider(bool stopped, bool insideTriggerBox)
+	{
+		didStop = stopped;
+		isInsideTriggerBox = insideTriggerBox;
+	}
+	
+	FinishAreaCollider(){
+	}
 
 	/// <summary>
 	/// Determines whether the lander has landed on the target.
@@ -138,6 +147,7 @@ public class FinishAreaCollider : MonoBehaviour
 
 
 				finalLevelScore = (int)Mathf.Ceil((float)(landScript.fuelAmount * .02));
+				finalLevelScore += (int)Mathf.Ceil ((float)(landScript.healthAmount / 2));
 				ScoreManager.AddScore(finalLevelScore);
 
 				if(victoryAudioSource != null)
@@ -267,4 +277,15 @@ public class FinishAreaCollider : MonoBehaviour
 		Debug.Log("Key: " + initialsKey);
 		PlayerPrefs.SetString((key + 1).ToString(), initialsKey);
 	}
+<<<<<<< HEAD
 }
+=======
+
+	/// <summary>
+	/// Used for testing, returns if level was finished or not.
+	/// </summary>
+	public bool getIfFinished(){
+		return didFinish;
+	}
+}
+>>>>>>> origin/master
