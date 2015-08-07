@@ -16,7 +16,86 @@ Platform assembly: C:\Users\Tommy\Documents\GitHub\LunarLander-CS4398\LunarLande
 Loading C:\Users\Tommy\Documents\GitHub\LunarLander-CS4398\LunarLander-CS4398\lander_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: C:\Users\Tommy\Documents\GitHub\LunarLander-CS4398\LunarLander-CS4398\lander_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading C:\Users\Tommy\Documents\GitHub\LunarLander-CS4398\LunarLander-CS4398\lander_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.064 seconds
-desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
+- Completed reload, in  0.085 seconds
+desktop: 1024x768 60Hz; virtual: 1024x768 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
+<RI> Initialized touch support.
+Platform assembly: C:\Users\Tommy\Documents\GitHub\LunarLander-CS4398\LunarLander-CS4398\lander_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Tommy\Documents\GitHub\LunarLander-CS4398\LunarLander-CS4398\lander_Data\Managed\System.dll (this message is harmless)
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 17.385878 ms
+
+Unloading 4 unused Assets to reduce memory usage. Loaded Objects now: 345.
+Total: 0.354072 ms (FindLiveObjects: 0.031973 ms CreateObjectMapping: 0.022894 ms MarkObjects: 0.290521 ms  DeleteObjects: 0.007499 ms)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.675382 ms
+
+Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 345.
+Total: 0.317757 ms (FindLiveObjects: 0.030788 ms CreateObjectMapping: 0.021710 ms MarkObjects: 0.257363 ms  DeleteObjects: 0.007105 ms)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.600384 ms
+
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 338.
+Total: 0.343414 ms (FindLiveObjects: 0.058420 ms CreateObjectMapping: 0.023289 ms MarkObjects: 0.248679 ms  DeleteObjects: 0.011052 ms)
+
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.528148 ms
+
+Unloading 16 unused Assets to reduce memory usage. Loaded Objects now: 290.
+Total: 0.287758 ms (FindLiveObjects: 0.022104 ms CreateObjectMapping: 0.015789 ms MarkObjects: 0.232890 ms  DeleteObjects: 0.016578 ms)
+
+The referenced script on this Behaviour is missing!
+ 
+(Filename:  Line: 1715)
+
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.474860 ms
+
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 587.
+Total: 0.379335 ms (FindLiveObjects: 0.030788 ms CreateObjectMapping: 0.018157 ms MarkObjects: 0.314994 ms  DeleteObjects: 0.014999 ms)
+
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.487096 ms
+
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 585.
+Total: 0.446439 ms (FindLiveObjects: 0.049735 ms CreateObjectMapping: 0.026052 ms MarkObjects: 0.356441 ms  DeleteObjects: 0.013420 ms)
+
+space key was pressed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
+
+TriggerCollider: LanderFinishCollider (UnityEngine.BoxCollider2D)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
+
+Fireworks: FireworksEffect (UnityEngine.Transform)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.714066 ms
+
+Unloading 6 unused Assets to reduce memory usage. Loaded Objects now: 580.
+Total: 0.426308 ms (FindLiveObjects: 0.042630 ms CreateObjectMapping: 0.025657 ms MarkObjects: 0.332362 ms  DeleteObjects: 0.024867 ms)
+
+space key was pressed
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
+
+TriggerCollider: Grav_Lander (UnityEngine.CircleCollider2D)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
+
+Fireworks: FireworksEffect (UnityEngine.Transform)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.609462 ms
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 580.
+Total: 0.290915 ms (FindLiveObjects: 0.037104 ms CreateObjectMapping: 0.016578 ms MarkObjects: 0.230522 ms  DeleteObjects: 0.006315 ms)
+
