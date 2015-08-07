@@ -137,11 +137,8 @@ public class FinishAreaCollider : MonoBehaviour
 				didFinish = true;
 				didStop = true;
 				int finalLevelScore;
-
-//				finalLevelScore = (int)Mathf.Ceil((float)(triggerCollider.gameObject.GetComponent<LanderControllerScript>().fuelAmount * .02));
-//				ScoreManager.AddScore(finalLevelScore);
-
 				LanderControllerScript landScript = triggerCollider.gameObject.GetComponent<LanderControllerScript>();
+
 				if(!landScript)
 					landScript = triggerCollider.gameObject.GetComponentInParent<LanderControllerScript>();
 
@@ -158,6 +155,7 @@ public class FinishAreaCollider : MonoBehaviour
 				finalLevelScore = (int)Mathf.Ceil((float)(landScript.fuelAmount * .02));
 				finalLevelScore += (int)Mathf.Ceil ((float)(landScript.healthAmount / 2));
 				ScoreManager.AddScore(finalLevelScore);
+				LanderControllerScript.levelFinished = true;
 
 				if(victoryAudioSource != null)
 				{
@@ -176,7 +174,7 @@ public class FinishAreaCollider : MonoBehaviour
 				{
 					CountDown3(); 
 					Invoke("CountDown2", 2); 
-					Invoke("CountDown1", 4); 
+					Invoke("CountDown1", 4);
 					Invoke("NextLevel", 6); 
 				}
 				else
@@ -267,7 +265,6 @@ public class FinishAreaCollider : MonoBehaviour
 	{
 		if (isLastLevel)
 		{
-//			ScoreManager.FinalScore();
 			GameManager.LoadLevel(5);
 		} 
 		else 
@@ -286,9 +283,6 @@ public class FinishAreaCollider : MonoBehaviour
 		Debug.Log("Key: " + initialsKey);
 		PlayerPrefs.SetString((key + 1).ToString(), initialsKey);
 	}
-//<<<<<<< HEAD
-//}
-//=======
 
 	/// <summary>
 	/// Used for testing, returns if level was finished or not.
@@ -298,4 +292,3 @@ public class FinishAreaCollider : MonoBehaviour
 		return didFinish;
 	}
 }
-//>>>>>>> origin/master

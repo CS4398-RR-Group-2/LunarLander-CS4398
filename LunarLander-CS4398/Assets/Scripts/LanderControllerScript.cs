@@ -66,8 +66,13 @@ public class LanderControllerScript : MonoBehaviour
 	/// <summary>
 	/// The amount of health a lander has at the start of a level.
 	/// </summary>
-
 	public float healthAmount = 100;
+
+	/// <summary>
+	/// A boolean variable used to determine if the player is on the final
+	/// level of the game. 
+	/// </summary>
+	static public bool levelFinished = false;
 
 	/// <summary>
 	/// A boolean variable which is used to represent if the player is
@@ -377,12 +382,19 @@ public class LanderControllerScript : MonoBehaviour
 
 		if ((xVelocity > DAMAGE_THRESHOLD || yVelocity > DAMAGE_THRESHOLD) && healthAmount > 0) 
 		{
-			depleteHealth(xVelocity,yVelocity,DAMAGE_MULTIPLIER);
+			depleteHealth (xVelocity, yVelocity, DAMAGE_MULTIPLIER);
 			healthAmount = healthAmount - DAMAGE_MULTIPLIER * Mathf.Pow ((xVelocity + yVelocity), 2);
+			ScoreManager.SubtractScore (10);
+		}
 
-			ScoreManager.SubtractScore(10);
+		if ((xVelocity > DAMAGE_THRESHOLD || yVelocity > DAMAGE_THRESHOLD) && healthAmount > 0) 
+		{
 
-			if (healthAmount <= 0)
+			depleteHealth (xVelocity, yVelocity, DAMAGE_MULTIPLIER);
+			//healthAmount = healthAmount - DAMAGE_MULTIPLIER * Mathf.Pow ((xVelocity + yVelocity), 2);
+			ScoreManager.SubtractScore (10);
+
+			if (healthAmount <= 0) 
 			{
 				healthAmount = 0; 
 				//game loss sequence should occur
