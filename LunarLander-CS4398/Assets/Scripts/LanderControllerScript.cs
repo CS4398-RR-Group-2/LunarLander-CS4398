@@ -69,6 +69,8 @@ public class LanderControllerScript : MonoBehaviour
 
 	public float healthAmount = 100;
 
+	static public bool levelFinished = false;
+
 	/// <summary>
 	/// A boolean variable which is used to represent if the player is
 	/// on the first level.
@@ -117,6 +119,8 @@ public class LanderControllerScript : MonoBehaviour
 	/// </summary>
 	private SpriteRenderer landerSpriteRenderer;
 	private bool thrustersOn;
+
+
 
 	/// <summary>
 	/// An array containing Sprites which represent images of a lander to be displayed.
@@ -363,20 +367,14 @@ public class LanderControllerScript : MonoBehaviour
 		xVelocity = Mathf.Abs (landerRigidBody.velocity.x);
 		yVelocity = Mathf.Abs (landerRigidBody.velocity.y);
 
-<<<<<<< HEAD
-		if ((xVelocity > DAMAGE_THRESHOLD || yVelocity > DAMAGE_THRESHOLD) && healthAmount > 0) 
-		{
-			healthAmount = healthAmount - DAMAGE_MULTIPLIER * Mathf.Pow ((xVelocity + yVelocity), 2);
-=======
+
 		if ((xVelocity > DAMAGE_THRESHOLD || yVelocity > DAMAGE_THRESHOLD) && healthAmount > 0) {
-			depleteHealth(xVelocity,yVelocity,DAMAGE_MULTIPLIER);
+
+			depleteHealth (xVelocity, yVelocity, DAMAGE_MULTIPLIER);
 			//healthAmount = healthAmount - DAMAGE_MULTIPLIER * Mathf.Pow ((xVelocity + yVelocity), 2);
+			ScoreManager.SubtractScore (10);
 
->>>>>>> origin/master
-			ScoreManager.SubtractScore(10);
-
-			if (healthAmount <= 0)
-			{
+			if (healthAmount <= 0) {
 				healthAmount = 0; 
 				//game loss sequence should occur
 			}
@@ -411,8 +409,6 @@ public class LanderControllerScript : MonoBehaviour
 		frame = 14 - frame;
 		landerSpriteRenderer.sprite = landerSprites [frame];
 	}
-<<<<<<< HEAD
-=======
 
 	/// <summary>
 	/// Used to deplete fuel based on amount used, used for testing.
@@ -437,7 +433,5 @@ public class LanderControllerScript : MonoBehaviour
 		return thrustersOn;
 	}
 
-	
 
->>>>>>> origin/master
 }

@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
 	public static void LoadLevel(int levelNum)
 	{
 		Application.LoadLevel(levelNum);
+		LanderControllerScript.levelFinished = false;
 	}
 
 	/// <summary>
