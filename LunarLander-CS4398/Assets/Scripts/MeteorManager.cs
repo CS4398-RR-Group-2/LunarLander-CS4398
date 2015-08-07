@@ -129,11 +129,11 @@ public class MeteorManager : MonoBehaviour {
 
 		}
 	}
-
+	/*
 	public static Quaternion FaceObject(Vector2 startingPosition, Vector2 targetPosition) {
 		Vector2 direction = targetPosition - startingPosition;
 		float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 		return Quaternion.AngleAxis(angle, Vector3.forward);
 	}
-
+	*/
 }
