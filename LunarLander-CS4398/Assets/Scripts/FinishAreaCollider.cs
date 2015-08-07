@@ -84,12 +84,21 @@ public class FinishAreaCollider : MonoBehaviour
 	/// </summary>
 	private Collider2D triggerCollider;		
 
+	/// <summary>
+	/// This method checks if the lander is stopped on the target landing area.
+	/// </summary>
+	/// <param name="stopped">If set to <c>true</c> the lander has stopped.</param>
+	/// <param name="insideTriggerBox">If set to <c>true</c> the lander is inside 
+	/// trigger box.</param>
 	public FinishAreaCollider(bool stopped, bool insideTriggerBox)
 	{
 		didStop = stopped;
 		isInsideTriggerBox = insideTriggerBox;
 	}
-	
+
+	/// <summary>
+	/// This method is used to tag an object as a target landing area.
+	/// </summary>
 	FinishAreaCollider(){
 	}
 
@@ -277,15 +286,16 @@ public class FinishAreaCollider : MonoBehaviour
 		Debug.Log("Key: " + initialsKey);
 		PlayerPrefs.SetString((key + 1).ToString(), initialsKey);
 	}
-<<<<<<< HEAD
-}
-=======
+//<<<<<<< HEAD
+//}
+//=======
 
 	/// <summary>
 	/// Used for testing, returns if level was finished or not.
 	/// </summary>
-	public bool getIfFinished(){
+	public bool getIfFinished()
+	{
 		return didFinish;
 	}
 }
->>>>>>> origin/master
+//>>>>>>> origin/master

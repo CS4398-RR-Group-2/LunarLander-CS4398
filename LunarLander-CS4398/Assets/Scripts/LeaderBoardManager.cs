@@ -1,4 +1,4 @@
-﻿/**LeaderBoardManager.cs
+﻿/* LeaderBoardManager.cs
  * 
  * This class instantiates the leaderboard and retreives it for viewing
  * by the player.

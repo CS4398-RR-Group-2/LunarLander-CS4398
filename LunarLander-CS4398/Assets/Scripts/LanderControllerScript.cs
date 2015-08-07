@@ -1,4 +1,4 @@
-﻿/**LanderControllerScript.cs
+﻿/* LanderControllerScript.cs
  * 
  * This class defines the controls and behavior of the lander. It hides and displays 
  * the lander's thrusters when initiated and plays audio. Also, health and fuel are 
@@ -116,6 +116,10 @@ public class LanderControllerScript : MonoBehaviour
 	/// A SpriteRenderer variable which represents a image of a lander to be displayed. 
 	/// </summary>
 	private SpriteRenderer landerSpriteRenderer;
+
+	/// <summary>
+	/// A boolean variable which represents that the thrusters are on or off.
+	/// </summary>
 	private bool thrustersOn;
 
 	/// <summary>
@@ -124,18 +128,23 @@ public class LanderControllerScript : MonoBehaviour
 	public Sprite[] landerSprites;
 
 	/// <summary>
-	/// Constructor method used for unit testing
+	/// Constructor method used for unit testing.
 	/// </summary>
+	/// <param name="a">An integer variable assigned to fuelAmount.</param>
+	/// <param name="b">A float variable assinged to healthAmount.</param>
 	public LanderControllerScript(int a, float b)
 	{
 		fuelAmount = a;
 		healthAmount = b;
 	}
-	
-	LanderControllerScript(){
+
+	/// <summary>
+	/// This method is used to tag the lander with the LanderControllerScript.
+	/// </summary>
+	LanderControllerScript()
+	{
 	}
-
-
+	
 	/// <summary>
 	/// This method is used to instatiate a lander witha rigid body. 
 	/// </summary>
@@ -209,7 +218,6 @@ public class LanderControllerScript : MonoBehaviour
 					applyRotation(rotate);
 					showLeftThruster();
 					depleteFuel(FUEL_BURN1);
-					//fuelAmount = fuelAmount - FUEL_BURN1;
 				}
 				else
 				{
@@ -223,7 +231,6 @@ public class LanderControllerScript : MonoBehaviour
 					applyRotation(rotate);
 					showRightThruster();
 					depleteFuel(FUEL_BURN1);
-					//fuelAmount = fuelAmount - FUEL_BURN1;
 				}
 				else
 				{
@@ -246,7 +253,6 @@ public class LanderControllerScript : MonoBehaviour
 				applyThrust(thrust);
 				showThrusters();
 				depleteFuel(FUEL_BURN0);
-				//fuelAmount = fuelAmount - FUEL_BURN0;
 			}
 			else
 			{
@@ -304,7 +310,9 @@ public class LanderControllerScript : MonoBehaviour
 	void hideThrusters()
 	{
 		if (isMainMenuScreen)
+		{
 			return;
+		}
 
 		thrusters.SetActive(false);
 		stopThrusterAudio();
@@ -351,7 +359,6 @@ public class LanderControllerScript : MonoBehaviour
 		thrustersOn = false;
 	}
 
-	//HP handler
 	/// <summary>
 	/// Controls the amount of damage taken by the lander when an impact occurs
 	/// against another object. 
@@ -363,16 +370,16 @@ public class LanderControllerScript : MonoBehaviour
 		xVelocity = Mathf.Abs (landerRigidBody.velocity.x);
 		yVelocity = Mathf.Abs (landerRigidBody.velocity.y);
 
-<<<<<<< HEAD
-		if ((xVelocity > DAMAGE_THRESHOLD || yVelocity > DAMAGE_THRESHOLD) && healthAmount > 0) 
+		if ((xVelocity > DAMAGE_THRESHOLD || yVelocity > DAMAGE_THRESHOLD) && healthAmount > 0)
 		{
 			healthAmount = healthAmount - DAMAGE_MULTIPLIER * Mathf.Pow ((xVelocity + yVelocity), 2);
-=======
-		if ((xVelocity > DAMAGE_THRESHOLD || yVelocity > DAMAGE_THRESHOLD) && healthAmount > 0) {
-			depleteHealth(xVelocity,yVelocity,DAMAGE_MULTIPLIER);
-			//healthAmount = healthAmount - DAMAGE_MULTIPLIER * Mathf.Pow ((xVelocity + yVelocity), 2);
+		}
 
->>>>>>> origin/master
+		if ((xVelocity > DAMAGE_THRESHOLD || yVelocity > DAMAGE_THRESHOLD) && healthAmount > 0) 
+		{
+			depleteHealth(xVelocity,yVelocity,DAMAGE_MULTIPLIER);
+			healthAmount = healthAmount - DAMAGE_MULTIPLIER * Mathf.Pow ((xVelocity + yVelocity), 2);
+
 			ScoreManager.SubtractScore(10);
 
 			if (healthAmount <= 0)
@@ -388,8 +395,10 @@ public class LanderControllerScript : MonoBehaviour
 	/// </summary>
 	void startThrusterAudio()
 	{
-		if(!thrusterAudio.isPlaying && !isMainMenuScreen && thrusterAudio && thrusterAudio.isActiveAndEnabled)
+		if (!thrusterAudio.isPlaying && !isMainMenuScreen && thrusterAudio && thrusterAudio.isActiveAndEnabled) 
+		{
 			thrusterAudio.Play ();
+		}
 	}
 
 	/// <summary>
@@ -397,8 +406,10 @@ public class LanderControllerScript : MonoBehaviour
 	/// </summary>
 	void stopThrusterAudio()
 	{
-		if(!thrusters.activeSelf && !leftThruster.activeSelf && !rightThruster.activeSelf)
-			thrusterAudio.Stop();
+		if (!thrusters.activeSelf && !leftThruster.activeSelf && !rightThruster.activeSelf)
+		{
+			thrusterAudio.Stop ();
+		}
 	}
 
 	/// <summary>
@@ -407,12 +418,10 @@ public class LanderControllerScript : MonoBehaviour
 	/// </summary>
 	void damageHandler()
 	{
-		int frame = (int)(healthAmount / (100/14));
+		int frame = (int)(healthAmount / (100 / 14));
 		frame = 14 - frame;
 		landerSpriteRenderer.sprite = landerSprites [frame];
 	}
-<<<<<<< HEAD
-=======
 
 	/// <summary>
 	/// Used to deplete fuel based on amount used, used for testing.
@@ -425,7 +434,8 @@ public class LanderControllerScript : MonoBehaviour
 	/// <summary>
 	/// Used to deplete heath based on velocity and dmgMultipler, used for testing.
 	/// </summary>
-	public void depleteHealth(float xVelocity, float yVelocity, float dmgMultiplier){
+	public void depleteHealth(float xVelocity, float yVelocity, float dmgMultiplier)
+	{
 		healthAmount = healthAmount - dmgMultiplier * Mathf.Pow ((xVelocity + yVelocity), 2);
 	}
 	
@@ -436,8 +446,4 @@ public class LanderControllerScript : MonoBehaviour
 	{
 		return thrustersOn;
 	}
-
-	
-
->>>>>>> origin/master
 }
